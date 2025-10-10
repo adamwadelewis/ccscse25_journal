@@ -1,0 +1,1 @@
+READ MEAttempted to use OverLeaf and use laTex however bib is not working, and references are not linked correctly. Finally, tables show but are cut off and unable to fix for some reason. My apologies…A clean MS.Word and PDF are located here as well to see if a conversation can be done on the publisher side.Thank you for any and all help!
