@@ -1,0 +1,170 @@
+\documentclass{article}
+
+\input{preamble}
+
+\addbibresource{references.bib} 
+
+\title{Investigating Student Use of Generative AI In Programming: A Pilot Study \footnote{\protect\input{copyright}}
+}
+
+\author{
+Sonal Dekhane\affmark[1] and Priyanshi Dave\affmark[2]\\
+Department of Computer Information Systems\\
+Georgia State University\\
+Atlanta, GA 30303\\
+\affmark[1]\email{sdekhane@gsu.edu}\\
+\affmark[2]\email{pdave4@student.gsu.edu}\\
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The explosive growth of Generative AI (Gen AI) since the launch of ChatGPT in November 2022 has impacted how people work, including students at colleges and universities. This pilot study specifically looks at students' use and perceptions of Gen AI tools in an introductory programming course. The study also looks at the grade distribution in this course from Spring 2022 - Fall 2024 to investigate if there is any impact of Gen AI tools on student performance in the course. While this pilot study uses data from a single course at a specific institution, its findings are relevant for other institutions as they try to navigate the quickly evolving landscape of Gen AI tools and their use by students in academia.
+
+\end{abstract}
+
+\section{Introduction}
+With the launch of ChatGPT in November 2022, Generative AI (Gen AI) technology became easily accessible to everyone, and its adoption has seen a rapid rise since then. Reports published by McKinsey in 2023 and 2024 show that the adoption of Gen AI technologies was more common for personal use than professional use in 2023 \cite{mckinsey2023ai}. That adoption increased rapidly by 2024 for both personal and professional uses \cite{singla2024state}. In higher education, students also adopted this technology to support their learning. Writing is the most common use case of Gen AI adopted by students. In computing, the code generation use case has had a significant impact on teaching and learning. As students started using ChatGPT to help them with programming assignments, educators had to figure out how to respond to that adoption \cite{cambaz2024ai}.
+
+Introduction to Programming, commonly referred to as CS1 in the computing education literature is a gateway course for computing majors. The successful completion of this critical course is generally required for students to advance in their computing major and provides them with foundational knowledge to succeed in this field. At Georgia State University (GSU) Department of Computer Information Systems (CIS), all CIS students are required to pass this gateway course with a B or higher grade within two attempts to continue as a CIS major. Failure and withdrawal (DFW) rates in this course have been consistently high throughout the country, with some studies putting this rate at around 28\% - 32\% \cite{bennedsen2019failure},\cite{watson2014no}. In the CIS department, while the DFW rate hovers at an average of around 18\%, the true failure rate averages around 41\% considering that students need to earn a B or higher grade to continue in the major. Students generally consider this a challenging course. With Gen AI's ability to generate code, it seems obvious that students would try to use this tool as a resource to help with their education, similar to other tools that they have used in the past. For example, forums such as Stack Overflow have been popular among CS1 students \cite{denny2024computing}. 
+
+This pilot study aims to investigate the adoption of Gen AI among CS1 students and its impact on the DFW rates in this class, if any. While there has been significant research on strategies to improve pass rates in CS1, the literature on the use and impact of Gen AI is relatively sparse. This paper aims to fill that gap and advance our knowledge on the adoption and impact of this revolutionary and rapidly evolving technology. While this research is performed at Georgia State University, its implications are relevant to other institutions offering similar courses. Understanding students’ perceptions, attitudes, and adoption of Gen AI is important as educators decide how to modify their teaching, assessments, and maybe even learning outcomes in CS1. This knowledge can also be a guiding factor in developing custom models specifically designed to help students achieve their learning outcomes in CS1.  As the technology is already being adopted by the industry, this knowledge can also be helpful in updating the curriculum to integrate Gen AI to help prepare students for the professional world.
+
+This pilot study seeks answers to the following questions:
+\begin{itemize}
+    \item Have the student pass rates in CS1 changed since Gen AI tools were introduced? 
+    \item How are students using these tools in CS1?
+    \item For what purpose are students using these tools in CS1?
+\end{itemize}
+
+This study attempts to answer the above questions using a mixed methods approach: combining statistical analysis of pass rates over time with quantitative and qualitative feedback from students on a survey.
+
+\section{Background}
+As Gen AI was introduced and gained popularity in recent years, its use by students for educational purposes also seems to have gained momentum. Tools such as GitHub Copilot and ChatGPT assist students in generating code, explaining concepts, and debugging \cite{sheppard2025integrating}. In a 2023 research study, Ramazan Yilmaz and Fatma Gizem Karaoglan Yilmaz randomly divided the students into experimental and control groups. The control group did not use ChatGPT, and the experimental group did. They found that the use of ChatGPT in programming education increased the computational thinking skills of students, the self-efficacy of programming, and the motivation for the lesson \cite{yilmaz2023effect}. So, the question arises how do different kinds of students use these Gen AI tools?
+In a research study that surveyed data from 1448 students who used Gen AI Tools in Chinese universities, the researchers indicated that students' critical thinking, self-directed learning ability, and AI literacy affected the information quality they extracted from the tools. This study suggested that there exists a positive feedback loop between students and Gen AI tools. The enhanced technical and cognitive competencies of the student will improve the information quality they extract from Gen AI tools, thus improving their satisfaction with these tools and maintaining consistent usage \cite{qi2025role}.
+
+With three out of four people using AI at work \cite{peasley2024ai}, students are inclined to learn to interact with AI to keep up with the job market. This would also mean that students who are not at par with using Gen AI tools or have minimal AI literacy may be at a disadvantage. To mitigate this, researchers have suggested a holistic framework for institutions to integrate AI in their courses. This framework aims to empower students, equip educators, and provide a foundation for institutions to ensure AI integration with academic integrity \cite{enhancing2024integrity}.
+Furthermore, Gen AI can be used as complementary tools for teachers in the classroom. Asha Rani Borah and S Gupta point out that Gen AI models are able to distinguish between the learning styles and preferences of individuals. This implication enables students to receive targeted recommendations, individualized feedback and learning pathways \cite{borah2024improved}.
+
+Despite the advantages of convenience, relevance to job market demands and excellent complementary tool for teachers, Gen AI poses severe challenges for adoption. Researchers at the University of Utrecht found that students in computing courses relied on Gen AI when learning that programming was not the main goal but applying programming is \cite{keuning2024students}. A lot of these students emphasize the importance of learning without Gen AI. Additionally, students have also reported that Gen AI has affected their relationship with their teachers. Students were found to have a relatively low level of trust towards their teachers, because they fear the negative outcomes of using Gen AI tools. These fears have become a barrier in communication between students and teachers thus hindering an efficient two-way communication and affecting student-teacher trust \cite{luo2024genai}.
+Overall, there is an environment of enthusiasm and caution regarding Gen AI adoption throughout higher education. This study aims to contribute to the limited research on the use and impact of Gen AI tools specifically in CS1.
+
+\section{Methodology}
+This study looks at two sets of data: 
+\begin{enumerate}
+    \item Grade distribution in 2022 (before introduction of ChatGPT), 2023 (when ChatGPT started gaining popularity) and 2024 (as the use of Gen AI increased in people's personal and professional lives) to see if the grade distribution and pass rates in CS1 have changed since the launch of ChatGPT.
+    \item Student responses on a survey inquiring about student use of Gen AI for educational purposes and specifically in CS1. The goal here is to understand if and how students use Gen AI to supplement their classroom learning, specifically in CS1. 
+\end{enumerate}
+
+The study was approved by GSU's Institutional Review Board (IRB). The grade distribution data was obtained from the university's internal data portal and did not include any student information. Generally, students taking the CS1 course in the CIS department are juniors. Before that they are considered pre-CIS majors and do not have the necessary pre-requisites to take this course. Hence, the anonymous Qualtrics survey was distributed to all junior and senior CIS students during Spring 2025. The survey collected quantitative data via objective questions and qualitative data via open ended questions. This survey was distributed to students through emails and LinkedIn messages. Participation was voluntary and did not affect students’ performance in any class. A total of 53 responses were collected. After cleaning the data to account for those who did not provide consent, analysis was conducted on 41 survey responses.
+
+
+\section{Results}
+
+\subsection{Grade Distribution}
+
+This study first looked at the grade distribution in CS1 from Spring 2022 - Fall 2024 including the summer semesters.
+The chart below shows the annual grade distribution. Each year represents the total grades assigned during the Spring, Summer and Fall semesters of that year. ChatGPT was launched in November 2022, i.e. towards the end of Fall 2022. The chart below shows a trend depicting an increase in grades A+, A, A- and B+ from 2023 (Spring 2023, Summer 2023 and Fall 2023) onwards. Correspondingly, there is a steady decline in lower grades from B- and below. The W grades seem to remain stable during the entire duration.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=1\linewidth]{GradeDistribution2.png}
+    \caption{Grade Distribution in CS1 from Spring 2022 - Fall 2024}
+\end{figure}
+
+A longer term monitoring and analysis of this data is certainly warranted to get a clear picture of the changes in grade distribution. Statistical analysis of potential factors impacting grades in CS1 would also be necessary to understand the reasons behind grade changes over the long term.
+
+\subsection{Survey Results}
+Of the 41 students who completed the survey, 56\% reported their gender as Female, 39\% as Male and 4.8\% chose not to specify their gender. The semesters when survey respondents took CS1 ranged from Spring 2023 - Spring 2025. The distribution is as shown below with Fall 2024, Spring 2025 and Spring 2024 being the most represented semesters:
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=1\linewidth]{SemesterOfCS1.png}
+    \caption{Semester Distribution of Students Completing the Survey}
+\end{figure}
+    
+\subsubsection{Generative AI Usage}
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=1\linewidth]{GAI Tools.png}
+    \caption{Gen AI Tools Used}
+\end{figure}
+When asked about their Gen AI usage, 58.53\% of survey participants responded that they used Gen AI tools, 7.31\% reported as not using any Gen AI tools and 34.14\% of participants left the question blank. Of those that answered the question 93\% responded Yes to using Gen AI tools. Interestingly all 14 participants who left the question blank were enrolled in CS1 in Spring 2025, when the survey was conducted. This behavior confirms the challenges mentioned by other researchers related to Gen AI's impact on students' relationship with their educators, mainly low level of trust and fear of negative outcomes for using Gen AI tools \cite{luo2024genai}. Of the 24 students who responded Yes to using Gen AI tools, ChatGPT was the most popular tool. Also, 1/3rd of the survey respondents reported using two or more tools.
+
+
+
+The students who do not use Gen AI tools for their classes reported that they decided to refrain from these tools because their instructor told them not to use them. When looking at the grades achieved by the students who reported using Gen AI tools in CS1, 83.32\% of students earned a B+ or higher grade in the course.
+
+
+\subsubsection{Purpose, Frequency, Perceived Impact and Dependence}
+The survey specifically asked the purpose of using Gen AI tools in CS1. Of the 24 students who responded Yes to using Gen AI tools, two respondents left this question blank. Responses from the remaining 22 students show several uses with understanding concepts, explaining error messages and debugging the code that they wrote as the top uses. Completing assignments was part of the responses, but was not among the most selected ones.
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=1\linewidth]{ToolUsage.png}
+    \caption{Purpose Behind Gen AI Tool Usage}
+\end{figure}
+
+The survey asked students to rate on a scale of 1-10 their frequency of Gen AI tool usage, its perceived impact on their improved understanding of the content and their dependence on Gen AI tools.
+1 represented "Not at all" and 10 represented "A great deal". Following table shows the results of those questions:
+
+\begin{table}[!htbp]
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+     & N & Average Rating & Minimum Rating & Maximum Rating \\
+    \hline
+    Frequency of Gen AI Tool Usage& 21 & 5.95 & 3 (4 respondents) & 10 (3 respondents) \\
+    \hline
+    Perceived Impact on Understanding & 22 & 8.05 & 5 (1 respondent) & 10 (6 respondents) \\
+    \hline
+    Dependence on Gen AI Tools& 22 & 4.68 & 2 (2 respondents) & 10 (1 respondent) \\
+    \hline
+  \end{tabular}
+  }
+  \caption{Summary of Responses}
+  \label{tab:fivecolumn}
+\end{table}
+
+
+\subsection{Qualitative Feedback from Respondents}
+\subsubsection{Student Attitudes on Gen AI Features}
+The authors conducted thematic analysis of the open-ended question "What feature of Gen AI tools do you like the most".  The word cloud below represents the themes generated:
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=1\linewidth]{WordCloudFeatures.jpeg}
+    \caption{Features Desired in Gen AI Tools}
+    \label{fig:enter-label}
+\end{figure}
+
+Most responses emphasized how Gen AI helps students understand code, errors, and concepts more clearly. Responses also consistently mentioned how Gen AI helps with fixing or making sense of errors. Many respondents appreciated how the tools break down complex logic into digestible steps. 
+Sample comments include:
+\begin{itemize}
+    \item It is nice to breakdown portions of code you are struggling to understand.
+    \item I like how you can talk it into teaching what the teacher explained but more in depth and it’s always stored so you know where you had trouble later on.
+\end{itemize}
+
+\subsubsection{Improvements Desired in Gen AI Tools}
+When asked about what improvements they would like to see in Gen AI tools, accuracy and error reduction emerged as the main theme. Students emphasized wanting correct, reliable, and bug-free code. Responses also indicated respondents' desire for scaffolded learning and explanations, instead of just answers. 
+Sample comments include:
+\begin{itemize}
+    \item More accuracy.
+    \item Less hallucinations.
+    \item More explanations and walkthroughs.
+\end{itemize}
+
+On a final open-ended comments question, participant responses suggest that many students use Gen AI tools as educational support, not necessarily to complete work for them. They also express ethical concerns or fear of losing learning opportunities when relying too much on AI and perceive Gen AI tools as more effective at explaining than some traditional materials or instruction. Lastly, some students approach Gen AI as a backup tutor, turning to it when traditional resources fail.
+
+\section{Discussion and Future Direction}
+The initial grade distribution analysis shows a rising trend among higher grades in CS1 since the launch of ChatGPT. However, continued data collection and analysis are needed to understand if and how this trend continues. The survey responses indicate that students might be using Gen AI tools to understand material and get help debugging code and fixing errors. It also indicates awareness among survey respondents about the right way of using Gen AI tools to support their learning and the ethical issues around the use of these tools. The findings of this pilot study provide the basis for a larger, multi-institutional study to understand how prevalent this awareness is and how students are learning this information.  
+
+There are important implications through this study for institutions and educators. Institutions should make a concerted effort regarding consistent messaging and policies around the use of Gen AI tools. Such a concerted effort could help improve trust among students and faculty around the use of Gen AI tools, currently identified as a challenge in the literature and confirmed in this study. This idea of consistent messaging also applies to Gen AI literacy for all students. 
+Gen AI literacy can ensure that students are industry ready with Gen AI skills without compromising their learning. As discussed in the literature review, students who have good critical skills fall into a positive feedback loop with Gen AI tools to extract useful information. This could imply that students if not equipped with Gen AI literacy, may not be able to extract the most useful information, indicating that institutions need to integrate Gen AI literacy into their curriculum. It will be important to look at any inequities caused by Gen AI among different groups of students. The potential for advances in technology to inequitably benefit some groups of students and not others exists. The impact of Gen AI on computing attainment of students from under-represented and/or underserved communities needs to be studied. Lastly, there is also an opportunity to build custom tools that align with goals that educators have set for their students' learning, rather than students using generic tools.
+
+\section{Conclusion}
+This pilot study was conducted to evaluate how the revolutionary Gen AI technology is affecting students' performance and perceptions in the Introductory Programming course, CS1. Initial grade distribution data shows an increase in A and B grades since the launch of ChatGPT. Quantitative results from the survey show that the majority of survey respondents use Gen AI tools to support their learning. Students believe the perceived impact of Gen AI on their understanding of content is an average of 8.05 on a scale of 1-10. Qualitative results from the study show a majority of the students are using Gen AI tools to understand concepts, explain error messages and debug code. Students report that their favorite feature about Gen AI is its ability to explain. There is a consensus from the data that students want Gen AI tools to hallucinate less and provide more walkthroughs. Beyond this, students who were enrolled in class at the time of the survey did not seem to feel comfortable admitting that they use Gen AI tools for their class, indicating a skepticism of the consequences as backed by the literature review. It is imminent for institutions to integrate Gen AI literacy in their curriculum, consider integrating customized Gen AI tools in their course and evolve traditional assignments to leverage this new technology, and promote the underlying goals of improving problem-solving and critical thinking among students in CS1. Gen AI literacy, consistent policies, and communication along with changes to pedagogy and assessments can also lead to improved student-faculty trust and academic integrity.
+
+\section{Bibliography}
+
+\printbibliography
+
+\end{document}
