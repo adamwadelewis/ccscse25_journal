@@ -10,38 +10,50 @@
 ## 106 
 - Files downloaded.
 - Files moved to git repo.
+- Draft built in repo, no issues found with paper (as expected, given author)
 
 ## 109 
 - Files downloaded.
 - Files moved to git repo.
+- Draft built in repo
+- Paper exceeds page limit, e-mail to author.
 
 ## 114
 - Files downloaded.
 - Files moved to git repo.
+- Draft build in repo
+- Minor edits to get it build, draft sent to author for review.
 
 ## 116 
 - Single file submitted.
 - Check Zip for copyright.
 - No copyright form found.
 - Files moved to git repo.
+- Able to create draft in repo after minor changes.
+- E-mail sent to author to confirm OK after changes.
 
 ## 119
 - Files downloaded.
 - Files moved to git repo.
+- Draft built from provided source
+- Sent to author for confirmation.
 
 ## 121 
 - Single file submitted.
 - Check ZIP for copyright.
 - Files moved to repo
+- Draft built, no issues with document.
 
 ## 124 
 - Files downloaded.
 - Files moved to repo
+- Draft built, no issues with document.
 
 ## 126
 - Single file submitted.
 - Check Zip for copyright file.
 - No copyright file form.
+- Had to reorder package loading, sent note to author to confirm no issue
 
 ## 132 
 - Single file submitted.
