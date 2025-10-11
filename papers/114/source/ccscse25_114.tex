@@ -5,7 +5,7 @@
 \usepackage{listings}
 \usepackage{minted}
 \lstset{basicstyle=\small\ttfamily,columns=fullflexible,breaklines=true} 
-\usepackage{xcolor}
+\usepackage[table]{xcolor}
 \usepackage{graphicx}
 %------for tables-------------
 \usepackage{array}
@@ -26,20 +26,6 @@
 \title{Infusing Artificial Intelligence Concepts into Introductory Computing Courses\footnote{\protect\input{copyright}}
 }
 
-%========================
-%\title{Infusing Artificial Intelligence Concepts into Introductory Computing Courses}
-
-%============================
-% \author{
-% Ingrid Russell\affmark[1], Abu Saleh Md Tayeen\affmark[1] and Zdravko Markov\affmark[2]\\
-% \affmark[1]Computing Science Department\\
-% University of Hartford\\
-% West Hartford, CT, 06117\\
-% \email{irussell@hartford.edu, tayeen@hartford.edu}\\
-% \affmark[2]Computer Science Department\\
-% Central Connecticut State University\\
-% New Britain, CT 06050\\
-% \email{markovz@ccsu.edu}\\
 % }
 %-----------------------------
   \author{
@@ -69,100 +55,6 @@
 \input{evaluation}
 \input{conclusion}
 
-% \section{Title and Author Information}
-% Please follow the example in this paper to enter title and author information.
-% The title should use title-casing. Please use \texttt{https://titlecaseconverter.com}
-% with ``AP'' style to reformat your title.
-
-% Use the following code in the ``author block'' if there is one author:
-
-% \lstset
-% {
-%     language=[LaTeX]TeX,
-%     breaklines=true,
-%     basicstyle=\tt\scriptsize,
-%     keywordstyle=\color{blue},
-%     identifierstyle=\color{magenta},
-% }
-
-% \begin{lstlisting}
-%   \author{
-%     John Meinke\\
-%     Computer Science Department\\
-%     Another University\\
-%     Our Town, TX 00000\\
-%     \email{jmeinke@univ.edu}
-%   }
-% \end{lstlisting}
-
-% Use the following code in the ``author block'' if there are multiple authors from different department of the same institute:
-
-% \begin{lstlisting}
-%   \author{
-%     Baochuan Lu\affmark[1], John Meinke\affmark[2]\\
-%     \affmark[1]Computer and Information Sciences\\
-%     \affmark[2]Physics Department\\
-%     Another University\\
-%     Our Town, TX 00000\\
-%     \email{\{blu,jmeinke\}@univ.edu}
-%   }
-% \end{lstlisting}
-
-% Use the following code in the ``author block'' if there are multiple authors from different institutes:
-% \begin{lstlisting}
-%   \author{
-%     Baochuan Lu\affmark[1], Author A\affmark[1], John Meinke\affmark[2], Author B\affmark[2]\\
-%     \affmark[1]Computer and Information Sciences\\
-%     Southwest Baptist University\\
-%     Bolivar, MO 65613\\
-%     \email{\{blu,author\}@sbuniv.edu}\\
-%     \affmark[2]Computer Science Department\\
-%     Another University\\
-%     Our Town, TX 00000\\
-%     \email{\{jmeinke,author\}@univ.edu}
-%   }
-% \end{lstlisting}
-%-----------------------------
-% \begin{table}[ht]
-% \caption{Nonlinear Model Results} % title of Table
-% \label{table:nonlin} % is used to refer this table in the text
-% \centering % used for centering table
-% \begin{tabular}{c c c c} % centered columns (4 columns)
-% \hline\hline %inserts double horizontal lines
-% Case & Method\#1 & Method\#2 & Method\#3 \\ [0.5ex] % inserts table
-% %heading
-% \hline % inserts single horizontal line
-% 1 & 50 & 837 & 970 \\ % inserting body of the table
-% 2 & 47 & 877 & 230 \\
-% 3 & 31 & 25 & 415 \\
-% 4 & 35 & 144 & 2356 \\
-% 5 & 45 & 300 & 556 \\ [1ex] % [1ex] adds vertical space
-% \hline %inserts single line
-% \end{tabular}
-% \end{table}
-%------------------------------
-% \subsection{Code Listings}
-% Commands from \texttt{listings} package allow you to display code easily with
-% customizable coloring and styling rules. Here is an example.
-% Please check out the source code of this document for details.
-
-% \begin{lstlisting}[language=Python,  caption=Python example]
-% x = 42
-% epsilon = 0.01
-% step = epsilon**2
-% num_guesses = 0
-% ans = 0.0
-% while abs(ans**2-x) > epsilon and ans < x:
-%     ans = ans + step
-%     num_guesses += 1
-% if abs(ans**2-x) <= epsilon:
-%     print(str(ans) +
-%     ' is close to the square root of ' +
-%     str(x))
-% else:
-%     print('Failed to find square root of ' + str(x))
-% print("The number of guesses is " + str(num_guesses))
-% \end{lstlisting}
 %-----------------------------------
 \medskip
 
