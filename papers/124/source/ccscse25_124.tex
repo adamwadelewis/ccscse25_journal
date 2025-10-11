@@ -1,0 +1,590 @@
+\documentclass{article}
+
+\input{preamble}
+
+\addbibresource{sample.bib}
+
+\title{Integrating Generative AI in CS Education: Trends, Challenges, and Pedagogical Innovations - An ACM-Based Literature Review\footnote{\protect\input{copyright}}
+}
+
+%Annonymous author name
+\author{
+Mauricio Ricardo Viana\affmark[1] and Sirazum Munira Tisha\affmark[2]\\
+\affmark[1,2]Department of Mathematics and Computer Science\\
+Rollins College\\
+Winter Park, FL\\
+\email{mviana@rollins.edu, stisha@rollins.edu}\\
+}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The rapid advancement of large language models (LLMs), such as GPT-4 and Claude, is transforming the landscape of computer science (CS) education. This paper presents an initial systematic review (SLR) of the 30 most recent peer-reviewed ACM publications from 2023 to 2025 to examine the integration of generative AI in CS instruction. Guided by four research questions, the review investigates how LLMs are used in teaching, their reliability and accuracy, ethical concerns raised, and frameworks proposed for responsible use. The findings reveal diverse applications including AI-driven tutoring, grading automation, prompt engineering, and curriculum redesign predominantly in introductory courses. While LLMs show promise in augmenting instruction and supporting learners, challenges remain in overreliance, assessment validity, and ethical governance. The review concludes with recommendations for inclusive, transparent, and pedagogically sound AI integration strategies, and highlights research gaps in long-term impact, advanced course adoption, and educator support.
+\end{abstract}
+
+
+\section{Introduction}
+
+The emergence of large language models (LLMs) such as GPT-3.5, GPT-4, and Claude has introduced transformative possibilities in computer science (CS) education~\cite{10.1145/3641554.3701863}. These tools, built on advancements in generative artificial intelligence (GenAI), have demonstrated capabilities in code generation, explanation, debugging, and interactive dialogue. As a result, educators and researchers have begun rethinking traditional pedagogical approaches to incorporate LLMs as instructional aids, tutors, graders, and even ethical discussion facilitators~\cite{10.1145/3641554.3701863}.
+
+While much of the initial discourse around LLMs focused on concerns regarding plagiarism and academic integrity~\cite{10.1145/3723010.3723019}, the landscape has since broadened. There is now growing recognition that, when used appropriately, LLMs can augment learning by supporting critical thinking, customizing feedback, and reducing teaching workloads~\cite{10.1145/3702163.3702182}. However, the rapid pace of technological evolution presents significant challenges for designing, evaluating, and governing the use of LLMs in educational contexts. Institutions are grappling with how to integrate these tools into their curricula while maintaining educational rigor, inclusivity, and ethical standards~\cite{10.1145/3545947.3576353}.
+
+This study conducts a systematic literature review (SLR) to investigate the current state of LLM adoption in CS education. We examine how these tools are being used in instructional design, grading automation, and personalized tutoring. We also explore their perceived benefits and limitations, ethical implications, and proposed frameworks for responsible implementation. Our review is guided by four core research questions:
+
+\begin{itemize}
+\item RQ1: How are LLMs and AI tools used in CS education?
+\item RQ2: How accurate and reliable are these tools in instructional contexts?
+\item RQ3: What ethical concerns are raised in the literature?
+\item RQ4: What frameworks or guidelines are proposed for responsible use?
+\end{itemize}
+
+Through a synthesis of most recent 30 peer-reviewed articles published by Association of Computing Machinery (ACM)~\footnote{https://www.acm.org/} between 2023 and 2025, this review provides a detailed account of trends, gaps, and innovations in the application of LLMs in computer science education in the latest practices.
+
+\section{Methodology}
+
+This study employs a Systematic Literature Review methodology following the structured three-stage approach outlined by Brereton et al.~\cite{brereton2007lessons}: planning, conducting, and reporting. In the planning phase, we formulated four focused research questions (RQs) and established a comprehensive protocol to guide the review process. The conducting phase involved systematic literature searching and the application of explicit inclusion and exclusion criteria to ensure study quality and relevance. Finally, the reporting phase synthesized findings to address our research questions, as presented in this paper.
+
+We conducted our literature search exclusively through the ACM Digital Library. Our search encompassed publications from January 2023 to May 2025, a timeframe chosen to capture developments following ChatGPT's public release, which fundamentally transformed the educational landscape. The search strategy employed multiple keywords including: ``AI in CS education,'' ``LLM in CS education,''  and ``Generative AI in CS education.''
+
+Studies were selected based on the following inclusion criteria:
+\begin{enumerate}
+    \item Full papers with a minimum of six pages (excluding references)
+    \item Peer-reviewed journal or conference publications
+    \item Written in English
+    \item Directly focused on computer science education
+\end{enumerate}
+
+We excluded workshop posters, short papers, opinion articles, and studies not centered on CS education contexts.
+
+The initial search yielded 246 research papers, comprising 216 conference proceedings and 30 journal articles. Two reviewers independently screened all records using our predefined criteria, with disagreements resolved through discussion. Records deemed potentially relevant underwent full-text assessment for relevance, methodological clarity, and reported outcomes. This two-stage screening process resulted in a final corpus of 94 studies (13 journal articles and 82 conference proceedings) selected for in-depth analysis.
+
+During the analysis phase, we tracked emerging themes aligned with our research questions. After approximately 30 reviews, thematic saturation was achieved as no new themes emerged. The remaining studies were used to confirm and refine existing thematic categories, with 30 studies directly cited in this paper's findings and discussion sections.
+
+% To conduct this SLR, we follow the aforementioned guidelines\cite{brereton2007lessons}
+% that suggest three main steps: planning the literature review, conducting the literature review, and reporting the results. During the
+% planning phase, we set five clear RQs and created a detailed plan
+% for our SLR. In the conducting phase, we search for relevant studies
+% and select them based on specific criteria. Finally, in the reporting
+% phase, we organize and present our findings in this paper.
+
+
+% We conducted a systematic search using the ACM Digital Library, IEEE Xplore, Scopus, and ArXiv. The keywords used were: "AI in CS education", "LLM in CS education", "ChatGPT", "Generative AI", and "teaching computer science". The search was limited to papers published between January 2019 and June 2025. We applied inclusion criteria: (1) full papers with at least 6 pages excluding references, (2) peer-reviewed conference or journal articles, (3) written in English, and (4) directly addressing computer science education contexts. We excluded workshop posters, short papers, opinion pieces, and papers not focused on CS education. 
+
+% Research Questions
+
+% RQ1: How are LLMs and AI tools used in CS education?
+
+% RQ2: How accurate and reliable are these tools in instructional contexts?
+
+% RQ3: What ethical concerns are raised in the literature?
+
+% RQ4: What frameworks or guidelines are proposed for responsible use?
+
+
+
+
+
+\section{Results}
+Following systematic literature review guidelines~\cite{brereton2007lessons}, this study synthesizes trends across the selected publications rather than conducting empirical experiments. For each publication, we extracted key information including study design, educational context, reported accuracy, ethical considerations, and any proposed frameworks or guidelines.
+Table~\ref{tab:related-studies} presents a summary of representative papers identified in our review. These works represent diverse research methodologies, target populations (students, instructors, TAs), educational levels (CS1, CS2, graduate), and implementation goals (instruction, ethics, grading, tutoring). However, we organised our reviwed paper as per our four research questions.
+
+
+\begin{table}[ht]
+\centering
+\caption{Comprehensive Summary of Papers on LLM Use in CS Education}
+\label{tab:related-studies}
+\begin{tabular}{|p{2cm}|p{1.7cm}|p{5cm}|p{1.5cm}|}
+\hline
+\textbf{References} & \textbf{Focus Area} & \textbf{Key Contributions} & \textbf{Related RQs} \\
+\hline
+\cite{10.1145/3613905.3637148, %1   
+10.1145/3649217.3653574,%5
+10.1145/3626252.3630817, %6
+10.5555/3665464.3665467,
+10.1145/3595634, %8
+10.1145/3641554.3701934, %9 
+10.1145/3658619.3658627,
+10.5555/3715622.3715630, %11
+10.1145/3626252.3630938,  %12
+10.1145/3641554.3701872, %15 
+10.1145/3623762.3633499, %18 
+10.1145/3641554.3701863,  %19
+10.1145/3633083.3633085,  %23
+10.5555/3636988.3637017, %25 
+10.1145/3649217.3653584, %26
+10.1145/3702163.3702182, %30 
+10.1145/3641554.3701867} & AI integration & Curriculum design, automated grading, AI tutoring, HCI education, validates response accuracy, student feedback on interaction quality, prompt engineering and code accuracy & RQ1, RQ2 \\
+\hline
+\cite{10.1145/3649217.3653574, %5  
+10.5555/3665464.3665467, %7  
+10.1145/3641554.3701934, %9  
+10.1145/3626252.3630938, %12  
+10.5555/3665464.3665469, %14  
+10.1145/3641554.3701872, %15  
+10.1145/3641554.3701863, %19  
+10.5555/3665609.3665618, %21  
+10.1145/3649217.3653575, %22  
+10.1145/3633083.3633085, %23   
+10.1145/3641554.3701917, %28  
+10.1145/3641554.3701867%31  
+} & Accuracy and student perception & Positive experiences with improving accuracy, cost effectiveness & RQ2, RQ3 \\
+\hline
+\cite{ 
+10.1145/3626252.3630958,
+10.1145/3641554.3701953, %4 
+10.1145/3716640.3716658,
+10.1145/3626252.3630927, %10  
+10.5555/3665464.3665469, %14  
+10.1145/3641554.3701872, %15   
+10.1145/3623762.3633499, %18 
+10.1145/3641554.3701863, %19  
+10.1145/3660650.3660657, %20  
+10.5555/3665609.3665618, %21  
+10.1145/3649217.3653575, %22   
+10.1145/3613904.3642919, %27  
+10.1145/3614419.3644014%29 
+} & Ethics Awareness & Discuss impacts, threats, over-reliance and ethical concerns and awarness & RQ3 \\
+\hline
+\cite{10.1145/3716640.3716658,
+10.1145/3626252.3630817, %6  
+10.1145/3595634, %8  
+10.1145/3626252.3630927, %10  
+10.5555/3715622.3715630, %11 
+10.1145/3623762.3633499, %18  
+10.1145/3641554.3701863, %19  
+10.1145/3660650.3660657, %20   
+10.1145/3614419.3644014%29  
+} & Framework & Redesigned curriculum focusing on inclusivity, prompt engineering etc, ethics module for CS/non-CS majors,policy reviews, integration strategies & RQ4 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\textbf{RQ1: How are LLMs and AI tools used in CS education?} \\
+Numerous studies explore the integration of LLMs in computer science education. For instance, researchers in \cite{10.1145/3626252.3630817} present curriculum designs that incorporate prompt engineering and emphasize ethical AI usage. AI-powered tutors specifically developed for introductory CS courses (CS1) are discussed in \cite{10.1145/3626252.3630938} and \cite{10.1145/3649217.3653574}, while researchers in  \cite{10.1145/3702163.3702182} examine the role of LLMs in grading support. Additionally, authors in \cite{10.1145/3641554.3701867} evaluate an interactive prompting system (iGPT) aimed at enhancing programming performance.
+
+According to Yeh et al.\ (2025)~\cite{10.1145/3641554.3701867} and Abolnejadian et al.\ (2024)~\cite{10.1145/3613905.3637148}, Over 80\% of the reviewed studies focus on undergraduate CS1 and CS2 courses. Common applications include feedback generation, code explanation, assignment scaffolding, and project support. The tools examined most frequently are GPT-3.5, GPT-4, and GitHub Copilot~\cite{10.1145/3641554.3701872,10.1145/3649217.3653584}. A few papers, such as Vadaparty et al.\ (2024)~\cite{10.1145/3649217.3653584}, investigate curriculum-wide redesigns that embed LLMs as central instructional tools. Beyond programming, LLMs have also been explored in contexts such as ethics education~\cite{10.1145/3641554.3701953}.
+
+
+
+\textbf{RQ2: How accurate and reliable are these tools in instructional contexts?} \\
+The accuracy and reliability of LLMs in educational settings are addressed across several studies. For example, researchers in \cite{10.1145/3626252.3630938} evaluates the correctness of LLM-generated tutor responses by validating them against course materials, while researchers in \cite{10.1145/3702163.3702182} compare AI-generated feedback with instructors' expectations to assess alignment with pedagogical goals. The study by \cite{10.1145/3641554.3701867} demonstrates that interactive prompting significantly enhances student outcomes by fostering engagement and guidance. Similarly, the research by \cite{10.1145/3649217.3653575} analyzes student perceptions of LLM support, revealing both the perceived benefits and noted limitations of these tools.
+
+Majority of the reviewed articles report that LLMs perform consistently well on straightforward tasks, particularly in routine code generation and syntax correction scenarios~\cite{10.5555/3636988.3637017}. However, their performance declines in tasks requiring higher-order cognitive skills such as abstraction, debugging, or creative problem-solving~\cite{10.1145/3641554.3701934}. To address these challenges, some studies have implemented retrieval-augmented generation (RAG) systems that ground model responses in course-specific materials, showing promising improvements in contextual accuracy~\cite{10.1145/3641554.3701917}. Additionally, interactive mechanisms continue to demonstrate positive impacts on learning outcomes~\cite{10.1145/3641554.3701867}.
+
+Despite these advances, several limitations persist. Many models remain highly sensitive to prompt phrasing, often exhibiting brittle behavior when prompts are slightly altered. Moreover, hallucinated responses where LLMs produce plausible but factually incorrect information remain a significant concern, as highlighted in \cite{10.1145/3623762.3633499}. These issues underline the need for further refinement to ensure dependable integration of LLMs in instructional contexts.
+
+
+\textbf{RQ3: What ethical concerns are raised in the literature?} \\
+A range of ethical concerns including overreliance on AI, academic integrity violations, and the spread of misinformation are examined across several studies. For instance, researchers in \cite{10.1145/3641554.3701953} explores ethical implications from both educator and student perspectives, while other works \cite{10.1145/3660650.3660657,10.1145/3641554.3701863,10.5555/3715622.3715630} highlight the need for integrating ethics into the curriculum and address risks associated with AI-generated content.
+
+Some of our reviewed studies explicitly identify ethical hazards in their findings. Common issues include plagiarism, excessive dependence on LLMs, and biased outputs rooted in the models’ training data~\cite{10.5555/3665464.3665469}. Faculty members often express concerns regarding detection of misconduct, enforcement of academic policies, and equitable access to AI tools. On the other hand, students may exhibit unwarranted trust in AI-generated responses, potentially overlooking errors or biases~\cite{10.1145/3641554.3701934}. These concerns are further intensified by inconsistent institutional policies and disparities in tool accessibility, underscoring the need for thoughtful, context-sensitive integration of LLMs in educational environments.
+
+\textbf{RQ4: What frameworks or guidelines are proposed for responsible use?} \\
+Several studies propose structured approaches to support the responsible integration of LLMs and AI tools in computer science education. For instance, \cite{10.1145/3626252.3630817} outline curriculum-based frameworks that emphasize principles such as prompt engineering, transparency, and critical reflection. \cite{10.1145/3660650.3660657} introduces a SWOT-based (Strengths, Weaknesses, Opportunities, Threats) framework to help educators and institutions assess the implications of adopting AI in academic settings. Furthermore, \cite{10.1145/3641554.3701953} applies global ethical standards—such as UNESCO’s framework—to promote interdisciplinary and responsible use of LLMs in educational contexts.
+
+Despite these efforts, few studies provide fully developed or widely adopted frameworks. According to Raihan et al.~\cite{10.1145/3641554.3701863}, most existing guidelines are fragmented, locally developed, and still evolving. Some researchers, such as Abolnejadian et al.~\cite{10.1145/3613905.3637148}, recommend structured, prompt-based instruction to scaffold responsible use. Others, including Deb et al.~\cite{10.1145/3641554.3701953}, advocate for embedding ethical reasoning directly into technical coursework. Rather than endorsing blanket bans on AI tools, these studies emphasize fostering critical thinking, promoting transparency, and encouraging metacognitive engagement. A recent contribution by  further underscores the importance of adaptive frameworks that evolve alongside technological and pedagogical advancements.
+
+
+%need re-writing
+
+In summary, our analysis reveals that majority of the studies focus on undergraduate programming courses, particularly CS1. Most of the reviewed literature finds that LLMs are effective for basic code generation tasks but struggle with complex, multi-step, or abstract prompts. Ethical concerns—such as bias, over-reliance, and plagiarism—are explicitly addressed in the studies. While many papers emphasize general principles such as promoting AI literacy and encouraging critical thinking, researchers also propose concrete instructional frameworks or implementation guidelines.
+
+% Results
+
+
+
+
+
+
+\section{Discussion}
+
+\subsection{Key Findings and Implications}
+
+Our systematic literature review reveals a rapidly evolving landscape of AI integration in computer science education, with significant opportunities alongside notable challenges. The concentration of research on undergraduate programming courses, particularly CS1 and CS2~\cite{10.1145/3641554.3701867, 10.1145/3613905.3637148}, reflects both the accessibility of these contexts for initial experimentation and the fundamental importance of introductory programming education in shaping students' computational thinking skills.
+
+\subsection{The Promise and Limitations of Current AI Integration}
+
+The finding that 65\% of studies report consistent LLM performance on straightforward tasks, while noting degraded performance on higher-order cognitive challenges~\cite{10.5555/3636988.3637017, 10.1145/3641554.3701934}, highlights a critical tension in AI-assisted education. This pattern suggests that current LLM implementations excel as sophisticated code completion and syntax assistance tools but fall short of supporting the deep conceptual understanding and creative problem-solving skills that define expert programmers. The reliance on tools like GPT-3.5, GPT-4, and GitHub Copilot across the majority of studies~\cite{10.1145/3641554.3701872, 10.1145/3649217.3653584} indicates a convergence around commercially available platforms, potentially limiting the diversity of pedagogical approaches and creating dependencies on proprietary systems.
+
+The success of retrieval-augmented generation (RAG) systems in improving contextual accuracy~\cite{10.1145/3641554.3701917} points toward a promising direction for future development. By grounding AI responses in course-specific materials, these approaches address one of the fundamental challenges of generic LLMs: their tendency to provide technically correct but pedagogically inappropriate responses. However, the persistent issues with prompt sensitivity and hallucinated responses~\cite{10.1145/3623762.3633499} underscore the need for more robust safeguards and instructor oversight.
+
+\subsection{Ethical Considerations and Institutional Challenges}
+
+The identification of ethical concerns in the reviewed studies reveals a significant gap between awareness and systematic attention to these issues. The prevalence of concerns about plagiarism, over-dependence, and biased outputs~\cite{10.5555/3665464.3665469, 10.1145/3641554.3701934} suggests that the integration of AI tools is outpacing the development of appropriate ethical frameworks and detection mechanisms. The disparity between faculty concerns about academic integrity enforcement and student tendencies toward uncritical trust in AI-generated content highlights a fundamental misalignment that requires targeted intervention.
+
+The inconsistent institutional policies and disparities in tool accessibility mentioned across studies point to broader equity concerns. As AI tools become increasingly central to programming practice, unequal access could exacerbate existing disparities in computer science education. This suggests that successful AI integration requires not only technical solutions but also institutional commitment to equitable access and comprehensive policy development.
+
+\subsection{The Framework Gap and Implementation Challenges}
+
+Perhaps most concerning is the finding that studies propose concrete instructional frameworks, despite widespread recognition of the need for structured approaches to AI integration~\cite{10.1145/3613905.3637148, 10.1145/3641554.3701953}. This gap between identifying challenges and providing actionable solutions suggests that the field is still in an exploratory phase, struggling to translate experimental findings into scalable pedagogical practices.
+
+The fragmented nature of existing guidelines, as noted by Raihan et al.~\cite{10.1145/3641554.3701863}, reflects the rapid pace of technological change and the diversity of educational contexts. However, this fragmentation also indicates a need for more collaborative, systematic approaches to framework development. The emphasis on principles like transparency, critical thinking, and metacognitive engagement across multiple studies~\cite{10.1145/3626252.3630817,10.1145/3660650.3660657} suggests emerging consensus around core values, even if specific implementation strategies remain diverse.
+
+\subsection{Implications for Educational Practice}
+
+The dominance of undergraduate-focused research, while providing valuable insights into foundational programming education, leaves significant gaps in our understanding of AI's role in advanced computer science topics and graduate-level instruction. The limited exploration of applications beyond programming, such as the few studies examining ethics education~\cite{10.1145/3641554.3701953}, suggests untapped potential for AI integration across the broader CS curriculum.
+
+The interactive prompting successes demonstrated in several studies~\cite{10.1145/3641554.3701867, 10.1145/3626252.3630938} highlight the importance of designing AI tools as collaborative partners rather than replacement systems. This finding aligns with broader educational research on the value of scaffolded learning and suggests that effective AI integration requires careful attention to the balance between assistance and independence in student learning.
+
+\subsection{Future Research Directions}
+
+Our analysis reveals several critical areas requiring further investigation. First, longitudinal studies examining the long-term impact of AI tool usage on programming skill development are notably absent from the current literature. Understanding whether early exposure to AI assistance enhances or diminishes students' fundamental programming capabilities is crucial for informed pedagogical decision-making.
+
+Second, the limited attention to advanced CS topics and graduate-level education represents a significant research gap. As AI tools become more sophisticated, their potential applications in areas such as algorithm design, systems programming, and theoretical computer science warrant systematic investigation.
+
+Third, the development of robust, empirically-validated frameworks for responsible AI integration remains an urgent priority. The current emphasis on general principles, while valuable, needs to be complemented by specific, actionable guidelines that can be adapted across diverse institutional contexts.
+
+\subsection{Limitations and Considerations}
+
+The rapid evolution of AI technology presents inherent challenges for literature reviews in this domain. Many of the tools and capabilities examined in the reviewed studies may already be superseded by more advanced systems, highlighting the need for ongoing research that can keep pace with technological development.
+
+Additionally, the concentration of research in certain geographic regions and institutional types may limit the generalizability of findings. The effectiveness of AI integration strategies likely varies significantly across different cultural, linguistic, and resource contexts, suggesting the need for more diverse research perspectives.
+
+
+\section{Conclusion}
+
+This initial literature review of 30 ACM publications (2023-2025) reveals how large language models are reshaping computer science education. Our analysis demonstrates concentrated adoption in undergraduate programming courses ~\cite{10.1145/3641554.3701867}, where LLMs show consistent performance on basic tasks but struggle with complex problem-solving~\cite{10.1145/3641554.3701934}. While ethical concerns about plagiarism and over-dependence appear some studies~\cite{10.5555/3665464.3665469}, some also propose concrete implementation frameworks~\cite{10.1145/3613905.3637148}, indicating a critical gap between recognition of challenges and actionable solutions.
+
+Key findings reveal that current AI tools excel as code completion aids but require significant development for deeper educational applications. The success of interactive prompting approaches~\cite{10.1145/3641554.3701867} suggests designing AI as collaborative learning partners offers the most promising direction, though persistent issues with accuracy and bias demand continued oversight.
+
+Future research must address three critical priorities: longitudinal studies on learning outcomes, exploration of AI in advanced CS domains, and development of robust implementation frameworks. The field requires sustained collaboration between educators, researchers, and technologists to realize AI's transformative potential while preserving the human elements essential to effective computer science education.
+
+\section*{Acknowledgement}
+This project is supported by John Hauck Foundation SFCR Fund, Student-Faculty Collaborative Research Fund, Colling-Clint Foundation, Bertoni-Clint Foundation Scholar.
+
+
+
+
+% \section{Literature Review}
+% \cite{10.1145/3386312}
+% It establishes the impact AI has started to have in the classroom since the launch of LLM. It wants to look into how teachers can incorporate LLM and gen AI into their courses. It aims to do so through a combination of literature review and a large scale survey. This is all in the hopes of exposing the gaps in the current practices of incorporating AI. They will both look into the current approaches about using gen AI, and then their survey data will be qualitatively analyzed.
+% It provides the beginnings of what can be research into how gen AI can be incorporated in the classroom. It does so through some insightful reasearch methods like lit review, but primarily a series of multi-institutional surveys. 
+% It fails to provide any actual results.
+% I'm unsure if I read the right document. I opened the PDF option in ACM and the actual document was only two pages. It provides almost what looks like a prologue, with all these things it aims to look into but none of the actual research elements.
+
+% \cite{10.1145/3626252.3630817}
+% This paper talks about how it is an ongoing debate on wether or not to accept use of LLM and gen AI in the classroom. It argues that as the technology grows more advance the implementation wether it is willing or not, will come to be. So in this case CS1 students should be taught early on, not only how to use these models but also their capabilities. It emphasizes that its capabilities are still limited and that it's important to teach students that it will not always be correct code, promoting the teaching of how to revise the code and make sure that it is correct. It also talks about how people will often think that AI generated code is more secure than their own, which is not the case, hence why CS1 students have to be taught how to ensure their code is safe and that they understand why it it. It goes on to explain that as these evolve it will be important to begin teaching how to prompt engineer. Finally, it proposes a curriculum on how to do all these things.
+
+% The article lays a foundation for what is important to take into account when it comes to teaching a class while incorporating AI, while proposing a defined way to begin teaching these things.
+
+% I noticed it failed to take into account the hum-computer interaction side of things, and just assumes that all these CS students will be clueless when it comes to using AI. In addition, I thought it wasn't taking into account the rapid evolution of these language models and how this will affect the learning of new CS students. Finally, I feel like some sort of follow along curriculum could also be implemented in order to ensure students can and will keep up with the curriculum.
+
+% This paper felt more complete than the previous one I read it actually goes into detail into what it wishes to adress and how it plans to do so. Overall, I'd say it is a good article with some solid ideas for the topic at hand.
+
+% \cite{10.1145/3545947.3576353}
+% This paper talks about new regulations regarding AI proposed by the EU. It does not go to into detail other than they used a paper published in 2018 to explain the importance of ethics in AI. In addition, they explain they it might be harmful to a students education, bu that they also want to keep up with the times.
+
+% They explain the importance of ethics and accuracy when it comes to AI and also that it can negatively be used as a shortcut.
+
+% They lack a more relevant source for the importance of ethics in AI. AI can also be used benefiically as a shortcut since it readily has the answers to any questions the users might have.
+
+% Very short article, didn't feel too relevant. I like the idea that a broader comission would propose a general guideline but I expected a more concrete outline
+
+% \cite{10.1145/3678884.3681831}
+% The article talked about the problems faced when using AI. Specifically how they consume alot of energy and how this is not very sustainabel. It also talks about how this will be discussed during their coference time and how they will take user input which will be further used as part of HCI research
+
+% They raise a good point relevant for my research about how sustainable AI is.
+
+% No solutions are really proposed and they don't mention anything about users potentially being aware of this problem and/or how they feel about it.
+
+% This was more of an overview about what presenters would go over during their time at a conference. Wasn't really worth the read and it wasn't really a research paper.
+
+% \cite{10.5555/3715622.3715630}
+% This paper goes into how AI is taking over the education system and wether we like it or not we will face a reality where AI is fully integrated into the schooling system. It mentions that like the internet, which we've embraced fully into the eduction system, AI will soon be the same. In the mean time some school have choosen to ban its us, which is not the right approach. Students will still be able to access it. instead they propose a class independet AI policy and get the students to adhere by it. It also mentions how AI will not replace coders. Furthermore, in CS specifically it proposes 4 different approaches to teach with AI. "The first approach is to enhance the student critical thinking skills by asking them to critique the ChatGPT produced essays or code. Allowing students to use different generative AI tools and compare the produced results is another approach to enhance the learning and allow them to identify the right generative AI tool for the task. The third approach is to allow students to use generative AI to evaluate and enhance their understanding of the concepts. The last approach is to use generative AI to generate practice tests or study questions, which are useful learning tools, thus facilitating the creation and grading [13]". These will help ensure CS students both learn to utilize these tools and how to code as well.
+
+% Understanding of the current issues AI faces. Proposes solutions for them, as well as provides its own research for them. 
+
+% It would be good if these proposals were tested with students. It could've mentioned more about the rapid evolution of AI. It should've gone more into the ethics of AI.
+
+% Good paper I liked over all. It got a little sidetracked trying to explain why AI won't replace programmers but it still contributed to the main focus and it got back on track soon enough.
+
+% \cite{10.1145/3386312}
+% This was sectioned of into two major parts. The first one talks about distributing cheap and affordable laptops in the global south. THe second part talks about AI advencements in the medical field, in things like diagnozing symptoms from an image. 
+
+% It emphasizes that AI is an ongoing revolution for humanity and it will change out society as a whole much like agriculture.
+
+% It is mainly a discussion and it doesn't really provide any new data or propose anything
+
+% I didn't really like this, firstly it deals with two different things which in my opinion felt unrelated to each other. When it came the part of AI, while I agree with its take it isn't really contributing anything new.
+
+% \cite{10.1145/3595634}
+% This paper focuses on how we need to begin adapting to the dawn of generative AI. This will impact how future cs students need to be taught. It mention how much of math is not taught with more visiualizations and critical thinking in mind, and this is also the future for CS education. Furthermore, It give different strategies and different assignments to possible adapt to AI. These involve things like drawing a diagram explaining what the program is doing, analyzing different solutions to the same problem facilitating the students understanding of the problem and how they can go about solving it.
+
+% Different methods of how to adapt to AI changing the CS teaching landscape.
+
+% No practical methods, while it does mention how AI isn't always right, it doesn't really expand on it. At one point it claims that AI will the end of software developers but doesn't say how this will change CS as a whole
+
+% Over all good paper, I think it's too early to tell for some of it's claims and know if methods will work. Similar approach to a different paper I already read.
+
+% \cite{10.1145/3660650.3660657}
+% This had a focus on a SWOT analysis of teaching CS with GAI. It made many great points. Strengths being it's code generating capabilities, it is good at explaining code, and can provide many helpful excercises for the learning process.. Weaknesses, very prompt depending, and it's lack of accuracy/incosistancy. Opportunite, it help novices and beginners have an easier time learning, by either helping provide aa personalized learning experience, as well as help with any errors they may encounter. Finally, for the Threats AI could be plagarizing different sources.
+
+% An in-depth analysis of AI's advantages and disadvantages.
+
+% There is a lack of discussion about how students may be reacting to the impact of AI in the learning experience.
+
+% A different perspective for many of the previous concepts I've come across, I feel this took a more unbiased approach and just tried to analyze different aspects of AI.
+
+% \cite{10.1145/3632523}
+% This was an opinion piece, from the perspective of a longtime CS proffesor. In their tim from starting at Standford teaching CS1 and CS2 they have experienced many changes within the field. For example, they say subjects usually reserved for a masters program, like HCI and AI now being taught to undergrad students just due to the rapid evolution of the field and the changing demands. It list out some advantages and disadvanteges of the current AI changes within the field.
+
+% It is important to get the perspective from someone currently in the CS education field.
+
+% No real statistics, just mention of some official changes, and first hand perspective from within the field.
+
+% This while not extensive and/or quantitative, still proves important since it is giving me a professional perspective for the CS field.
+
+% \cite{10.1145/3649217.3653539}
+% It explains that while ethics is widely accepted as an important subject in CS it is often not prioratized. It further explains different aspects of ethical reasoning like when what and how it should be used. It then explains the differnet categories of ethical resoning:     Modeling Input, Modeling Processes, Implications of System Structure, Scaling Small Issues, Bias Laundering. It goes on to propose ways this can be better implemented into the CS curriculum.
+
+% Gives an in-depth explanation of the importance of CS ethics.
+
+% Specifically for the research topic, this doesn't go into how CS ethics is being challenged and needs to change with the rapid rise of GAI.
+
+% It is good for overall knowledge of ethics in AI but it wasn't very helpful for the reasearch topic.
+
+% \cite{10.1145/3641555.3705252}
+% IT proposes an AI literacy class aim towards both Computer Science and non Computer Science majors. It aims to increase the sense of inclusivity within the field due to the impact the AI revolution is having on society. So, it proposes two different curriculums depending on thier major. For non CS its a more analytical course that focuses on understanding responsible use of AI and how the tools preform. For CS majors, it is a more hands on course with students having to deal with LLM and analyzing them while still learning about responsible use of AI.
+
+% A course already tested on students that has proven to have some success.
+
+% It fails to mention how students preformed or reacted to the information.
+
+% I like how it is a recent paper with a practical approach that has already been tested.
+
+% \cite{10.1145/3641555.3705261}
+% It's a study of CS ethics familiarity among a group of 88 different teaching assistants across two universities. It found that CS ethics is not universal across all teaching assitants, but that those who are familiar with it think it was a corners stone of their ducation emphasizing its importance.
+
+% Gives a view into opion of CS ethics people in the education field actually have.
+
+% It could be broader, instead of focusing on just TA's it could be CS major as a whole. But, I understand why focusing on people who are semented on the field would be better.
+
+% Good insights into what people that have been through the major and want to keep working in it think about ethics in Computer Science.
+
+% \cite{10.5555/3722479.3722486}
+% This article proposes that denying the use of AI tools is pointless since students will come use them in their professional career and will seek them out regardless. However, they can be leverage to accelerate the coursework in CS and begin teaching core concepts earlier in their academic carrers.
+
+% This paper proposes that the benefits of AI can be used to begin teaching more fundamental CS concepts to beginners since they can leverage AI to learn faster.
+
+% There is no mention of how this would play out in actuality. In theory AI can teaching harder concepts, but without an actual foundation to build upon it's harder to determine if it is actually practical
+
+% Despite it not being an actual paper I liked how it was the first one I read actually proposing accelerating teaching thanks to AI.
+
+% \cite{10.1145/3626252.3630938}
+% An AI tool created specifically to simuate a 1:1 student faculty ratio, in Harvards CS50 course was created with different goals in mind. For example, they limit the ammount of queries a student can ask, to encourage critical thinking and getting them to ask higher quality questions. They also made sure the AI only answers as a tutor, in other words not giving outright answers. To improve accuracy they compared the answers they recieved from GPT4 with information from their lectures. Finally, they implemented a separate tool into the AI, ED which is a forum where students ask and answer questions, to prevent repeat questions and maximize answer accuracy. They recieved positve results with most students finding it very to moderately helpful, and a minority disliking the AI tool.
+
+% They tailored and AI to work as a tutor for an introductory CS course, and tested out the practicality of it. Set messure to prevent promt engeneering to prevent missuse of the tutoring AI.
+
+% This is yet to be tested out in higher level courses.
+
+% The most directly helpful paper towards this research since it directly tests out what I'd like to achieve. Very detailed on how the AI works, and how they attempt to maximize learning with it.
+
+% \cite{10.1145/3702163.3702182}
+% It's a very insightful research into implementing a LLM for grading purposes. They trained the model themselves, model was Pythia 160M, and they trained them with NVIDIA T4 GPU's. They campared to various models, and managed to get an improved perplexity score, and teachers confirmed that the feedback was strong and relevant.
+
+% This is the first paper I read where it also benefits the teacher, specially in larger schools/classes, it is harder for teachers to personally engage with their students. So this solves the issue, by diminishing their workload by still giving very valid feedback about their work, leaving time for teacher to give more personalized feeback for  students.
+
+% The sample size is mall and the LLM doesn't yet support more diverse disciplines.
+
+% I like this idea, like I said it's the first paper that I've noticed would also benefit proffesors in a way, so I think that is very cool, I wonder if it could get to the point where professors are kinda irrelevant, somewhat like SWE feels right now, atleast Junior ones. Where they feel like their job is being replaced by AI.
+
+% \cite{10.1145/3681802}
+% This focused on the impacts AI has had for Gen Z as a generation. Claiming that due to the time period gen Z was raised in, there was no "before AI" for them. It raises valid concerns for things like the job market and reprecusions AI will have for the future of gen Z. Things like job displacements, privacy and equal access to AI. The article propose making fair regulations for all of these issues.
+
+% How AI has had an impact for gen Z as a generation and how it should be regulated.
+
+% It doesn't adress the impact it's having for older generations and how they should  regulated, it is very narrow sighted, like it focuses on the negative impacts of AI but fails to mention the benefits.
+
+% Good structure and length, but very pessimistic overall. Everything it talked about are things I have throught about in the past one way or another.
+
+% \cite{10.1145/3649217.3653574}
+% They implent an AI called CodeHelp, with various restrictions to help students at the university of Auckland. They did this for a relatively short period of time and it came to a cost of 510 dollars. The ai assitant was based on a GPT4 model that filtered queries by only retrieving pseudo code to students. Students gave feedback about how it should return questions and not jjust give them the answer. It saw the highest usage when deadlines were coming up. Students also appreciated how it worked almost as a TA and it tailored the responses to their skill level as well as the option to ask 24/7
+
+% Similar to Harvards CS50.ai provides and actual study into AI can successfully be implented as tutor in combination with a course. 
+
+% They period of implemntation was relatively short and it also hasn't been tested for higher level coursework.
+
+% This was another great source for the research since it directly implemneted what I'm interested in researching.
+
+% \cite{10.1145/3649217.3653575}
+% Surveys undergrad as well as post grad students on their experience with AI, specifically LLMs. They found that over 70\%of CS and engeneerign students have used it to a mostly positve review. They found that they mainly see it as an assitance  tool to either debug or draft an early version or code. There's a quote of someone describing it as the calculator for coding.
+
+% Gives qualitative data of CS students experience and views with AI.Gives typical use cases and insights to how these students seem to want it implemented into the curiculum.
+
+% It only focuses on studnets perspectives of AI use. Its scope is very limited since it was only conducted at one institution. There was no measure of how AI tools affected students preformance in school.
+
+% Decent paper, provides a good ammount of data but it's nothing too useful. It's mostly insights into how students use these tools.
+
+% \cite{10.1145/3633083.3633085}
+% A study focused on teaching alongside AI generated coursework in upper class highschools in Egypt. It foucused on math education primarily, and used Khan Academy's AI. They aim to use AI as an assisstant for teachers rather than replacements, and found students were more successful this way rather than when they were only using AI.
+
+% AI in highschool coursework, quantifiable data that AI is more beneficial alongside a teacher.They also explored taking the teachrs inpus for all of this.
+
+% Only focused on one AI and it was specifically tailored to Egypt. It is also not related to CS.
+
+% Not too relevant, first one I've read that is using AI in lower levels of education.
+
+% \cite{10.1145/3641554.3701917}
+% This paper focuses on the preformance and cost efficiency of various LLMs. Specifically in how accurate they are and which is better to locally host or to opt for commercial options. They tested this in CS1, CS2, DB1(data base), DB2.
+
+% First paper to focus on the costs benefit of LLMs and AI. Takes a look at both comercial LLMs as well as the option to locally host and their cost. Implements RAG(Retrieval-Augmented Generation) and it heavily benefits response.
+
+% It failed to explore their ability to tutor or give feedback. Only focused on its Q\&A capabilities and its accuracy.
+
+% Interesting paper, beneficial insights and its something I hadn't read about yet.
+
+% \cite{10.1145/3614419.3644014}
+% This goes into overall reception of AI tools within the online community specifically reddit. The perception becomes more negative over time. Topics such as academic integrity, policy confusion, and the evolving value of education are prevelent. Faculty concern with academic integrity and lack of detection tools is also mentioned. There is also a growing concern with the job market.
+
+% Takes a more broad perspective, instead of focusing on a specific campus, they take the online sentiment towards AI, while using an ample sample size 700+. Identifies the changing landscape and proposes a more clearly defined AI guideline, as well as an overall rethinkng of coursework alongide AI. Also identifies a stress from students about being falsely accused of using AI.
+
+% The study only focuses on reddit posts, there is no sourcing from a different social media site, so the scope is kinda narrow. There is a lack of more recent data as well, they only cover posts until mid-2023
+
+% I like this paper, heven't read one where they look more into the general perception online. This offers a more broad perspective since these people can come from different backgrounds, campuses, and curriculums.
+
+% \cite{10.1145/3613904.3642919}
+% This paper goes into how AI hinders or enhances the creative process.They tested through no inspitartion, google image search, and Midjourney. They found that the AI sketches were ovverall less creative and more similar to the images provided to them by the AI. They testeed this in small groups in 60 universities. 
+
+% They propose the phenomenom "fixation displacement” besically saying that users who use AI focus too much on the AIs output rather than their own creative outlet.
+
+% This was only tested on beginners, no professional artist were focused.
+
+% Not really relevant to what I'm researching other than the phenomenom.
+
+% \cite{10.1145/3658619.3658627}
+% The research implemented AI into a 10 week HCI course. It proved beneficial, leading to user finding gaps in their knowleged easily, and it proved to be a valuable tool since some users were using is to simulate user feedback.
+
+% Specifically in the HCI context, when users were using vague prompts they got vague answers and this made them practice presicion in HCI. AI reportely made the module more engaging. AI also helped simulate feedback which is always needed in HCI.
+
+% Only a small percentage of the students answered the post course assessment. There was metric about AIs impact on their learning. They could've had a control group that didn't use AI at all to compare.
+
+% Neat paper, i liked how I could compare and contrast since I just took HCI myself.
+
+% \cite{10.1145/3623762.3633499}
+% This is a deep dive into global survey (171 students, 57 instructors), interviews with 22 educators, a literature review of 71 academic papers (mostly from 2023). They mainly found that AI is turning into a code comprehension tool, and they propose that CS as a whole should begin focusing on prompt engineering. Once Again they raise ethical concersn, but ultimately they end it with saying that it should be a tool to be taken advantage of not policed.
+
+% Deep dive literature review, the propose various ethical changes, as well as identify various changes and impacts AI is having.
+
+% It primarily focused on CS1 as well as only really delved into US schools.
+
+% Useful paper, really summarizes alot of what 
+% I've been reading
+
+% \cite{10.1145/3626252.3630958}
+% Literature review of 21 research papers ranging from 2018-2023. They go into various models. Teachers use is as an auto grader and students as a pseudo tutor.The paper concludes that LLMs can be valuable in education if risks like over-reliance, academic misconduct, and model inaccuracies are managed.
+
+% They do a good job clasifying everything into categories, as well as diving everything into specific LLM model.
+
+% Doesn't go too indepth into how much AI really benefits their learning.
+
+% Useful paper again really helps condense alot of information.
+
+% \cite{10.1145/3641554.3701867}
+% This study investigates how novice programmers can better use LLMs through an interactive prompt-based system called iGPT. The authors compare iGPT (which asks clarifying questions and provides implementation plans before coding) with a standard GPT-4o interface (Control) across 50 students who recently completed CS1. The interactive LLM significantly improved both the first-pass accuracy and eventual pass rates on Python programming problems across all difficulty levels. Students who used iGPT were better able to write effective prompts, even when later returning to the standard LLM. The study demonstrates that interactivity enhances learning—not only improving code correctness but also helping students internalize better prompting strategies. The authors propose building a suite of iGPT-style LLMs to support a range of CS learning goals (debugging, docstring writing, or code comprehension).
+
+% Detailed analysis of results, such that they decribe the type of student trying out their iGPT. 
+
+% Only tested for one semester, no manual code review, and it was only tested outside of class time.
+
+% Good paper, good concept, very suseful in the sense that it is very detailed with its data and results.
+
+% \cite{10.1145/3649217.3653584}
+% This paper focuses on a redesigned CS1 course that implements GitHub Copilot as part of the course. The course chooses to focus on prompt engineering, debugging, testing, and decomposition. The student's perception was mostly positive, concerns about overreliance did arise.
+
+% Course curriculum fully desgined around teaching with an LLM. 
+
+% Hasn't been implemented beyond CS1. No manual grading so it fails to asses code quality. 
+
+% \cite{10.5555/3665609.3665618}
+% In this paper the authors compared all the course assement from a CS1 course and compared the output to a students. They found that it compares to that of an avg to an above avg student. It did struggle with multistep reasoning, and debugging.
+
+% It's good data about ChatGPTs preformance in an actual course format. It demonstrates LLM's capacities to pass a beginner level CS course. Once again it raises eithical concerns. it compares and contrasts LLMs vs actual student results.
+
+% No plan to fix issues and concerns. It's only centered around one course, and it limits ChatGPTs as in it doesn't acknowlege it's capabilities as a tutor.
+
+% \cite{10.1145/3641554.3701953}
+% This paper describes an initiative to implement education in AI ethics in seven non-CS university courses, ranging from Art to Chemistry. This was created by a team of CS educators using tools like ChatGPT and DALL-E and ethical framworks like UNESCO and the Montreal Declaration. They also conducted surveys before and after the course revealed improvements in ethical awareness, reasoning, and communication.
+
+% Proposes how to teach AI ethics to other fields, with the use of LLMs. Heavily supported by studenys and faculty.
+
+% Doesn't go into how this could be implemented for CS.
+
+% \cite{10.1145/3641554.3701872}
+% A astudy into how LLMs (GPT-3.5, GPT-4o, Claude Sonnet) preform in complex CS assignment. They tested using 700 trials with varying conditions, with LLM preformance and failure.
+
+% They provide practical strategies for designing assignments that encourage genuine student learning and are resistant to LLM overuse or misuse.
+
+% No information on classroom setting. Only infor on python assignments
+
+% \cite{10.5555/3665464.3665469}
+% Study where students were fully allowed to use LLMs in CS1 and CS2 courses. Most students used it responisbly while some overrelied on it. 
+
+% Implementation for CS1 and CS2. Students perception, Documents positive outcomes as well as over all risk.
+
+% There is no comparision to students not usign LLMs.
+
+% \cite{10.5555/3636988.3637017}
+% Analyses ChatGPTs preformance in solving 162 Kattis problems. It foudn that as difficulty rose ChatGpt's preformance declined.
+
+% Provides data that LLM's aren't equipped to handle difficult programming problems yet.
+
+% Only tests ChatGPT no other LLM.
+
+% \cite{10.1145/3641554.3701934}
+% This study explores how students respond to formative feedback generated by LLMs during “Explain in Plain English” (EiPE) code comprehension tasks. Students described code in plain English, and GPT-3.5 generated equivalent code from their explanation, which was tested for correctness. The resulting code and test case outcomes were shown to students, who could then revise their explanation. Analyzing 177 student prompts from 21 participants, the researchers found that students often improved their prompts by referencing test case results or analyzing the generated code. While LLM feedback helped most students refine their understanding, some students were misled by false positives (incorrect prompts that passed) and false negatives (correct prompts that failed), raising concerns about potential reinforcement of misconceptions.
+
+% English to code student reactiong from LLMS.
+
+% Only 21 students tested. It only focused on code comprehension. 
+
+% Very useful way to teach CS with AI.
+
+% \cite{10.1145/3641554.3701863}
+% Reviews 125 peer-reviewed studies published between 2019–2024, the authors analyze how LLMs are integrated across educational levels, CS sub-disciplines, programming languages, research methodologies, and model types. Most studies focus on undergraduate introductory programming courses using Python and GPT-3.5, with limited exploration into advanced topics, non-English learners, or long-term educational outcomes. The paper emphasizes the need for curriculum redesigns, ethical awareness, and better support for instructors and students.
+
+% First large scale review. Identifies LLM usage across 5 research topics. Provides both student and instructor perspective.
+
+% \cite{10.1145/3613905.3637148}
+% This case study introduces a personalized instructional platform using ChatGPT for CS1 programming students. By collecting student metadata (e.g., GPA, experience), the system delivers tailored explanations, examples, and exercises in a structured sequence. Students exposed to this adaptive AI tutoring approach outperformed peers in traditional instruction and reported higher engagement and satisfaction. 
+
+% Proposes a way to personalize learning with LLM in CS1. Shows how it leads to student improvement.
+
+% Doesn't test out on different LLMs.
+
+% \cite{10.1145/3716640.3716658}
+% This paper challenges how LLMs are seen as limited to automation tools. They can also be used a learning tools supportingcognitive processes like abstraction, explanation, and reflective thinking. 
+
+% Proposes LLMs as "cognitive partners". Highlights case studies where LLMs helped learners reframe or rephrase problems, not just solve them.
+
+% Its mainly conceptual, no actual application proposed. No proposal on how to implements this cognitive LLM framework.
+
+% \cite{10.1145/3626252.3630927}
+% This paper examines the regulatory landscape surrounding generative AI, focusing on U.S. government actions and proposals. It reviews the AI in Government Act of 2020, the National AI Initiative Act, and recent executive orders. It also analyzes policy challenges related to privacy, bias, discrimination, safety, and job displacement. The paper concludes with specific regulatory recommendations, including mandatory AI attribution in federal documents, creation of oversight bodies, and promotion of AI literacy.
+
+% Talks about AI regulation araound the globe. Highlights limitaions in the US compared to EU AI polocy.
+
+% Just based on policy review(no research). 
+
+% \cite{10.5555/3665464.3665467}
+% This study investigates the impact of ChatGPT on student learning and academic performance in a computer networking course. Conducted in Spring 2023 with 12 college juniors/seniors, the research encouraged students to use ChatGPT to review core course questions prior to a proctored exam. After the exam, a survey was conducted to capture student perceptions, alongside a performance comparison with a prior cohort (Fall 2021) that did not use ChatGPT. Survey responses indicated high student satisfaction with ChatGPT’s explanations and ease of use. Performance data showed improved average exam scores and lower variability in the 2023 cohort, suggesting a potential learning benefit from AI assistance.
+
+% Empirical classroom study comparing performance before and after ChatGPT adoption. Captures qualitative and quantitative student feedback on AI-enhanced learning. Demonstrates ChatGPT's usefulness as a self-paced tutor, with real-world and simplified examples.
+
+% No control group. Only focused on one networking course at one institution.
+
+
+
+
+
+
+
+
+\medskip
+
+\printbibliography
+
+\end{document}
