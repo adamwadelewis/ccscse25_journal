@@ -1,0 +1,220 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage{float}
+
+\input{preamble}
+
+\newif\iffinal
+\finaltrue
+
+\addbibresource{references.bib}
+
+\iffinal
+
+\author{
+\href{https://orcid.org/0000-0002-3486-5665}{Sing Chun Lee}\affmark[1]\\
+\affmark[1]Department of Computer Science\\
+Bucknell University\\
+Lewisburg, PA 17837\\
+\email{singchun.lee@bucknell.edu}
+}
+\def \UniName {Bucknell University}
+\def \linkone {\href{https://bucknell-graphics.github.io/SP25/quest2.html}{https://bucknell-graphics.github.io/SP25/quest2.html}}
+\def \linktwo {\href{https://bucknell-graphics.github.io/SP25/quest2-.html}{https://bucknell-graphics.github.io/SP25/quest2-.html}}
+\def \linkthree {\href{https://eg.bucknell.edu/~scl019/Courses/CGSP25/index.php}{https://eg.bucknell.edu/$\sim$scl019/Courses/CGSP25/index.php}}
+\def \linkdemo {\href{https://bucknell-graphics.github.io/}{https://bucknell-graphics.github.io/}}
+\def \CourseName {Computer Graphics Wizard Academy}
+\def \CourseShortName {CGWA}
+\def \Pronoun {I}
+\def \pronoun {I}
+\def \surveylinkone {\href{https://forms.gle/1r8oyCUDYVFJkGs67}{https://forms.gle/1r8oyCUDYVFJkGs67}}
+\def \surveylinktwo {\href{https://forms.gle/vXG6TBdvAnPYdtLq9}{https://forms.gle/vXG6TBdvAnPYdtLq9}}
+
+\else
+
+\author{
+Anonymous\affmark[1]\\
+\affmark[1]**********\\
+**********\\
+**********, **********\\
+**********@**********
+}
+
+\def \UniName {**********}
+\def \linkone {\href{https://**********}{https://**********}}
+\def \linktwo {\href{https://**********}{https://**********}}
+\def \linkthree {\href{https://**********}{https://**********}}
+\def \linkdemo {\href{https://**********}{https://**********}}
+\def \CourseName {\textit{Anonymous Course Name}}
+\def \CourseShortName {\textit{Anon.}}
+\def \Pronoun {We}
+\def \pronoun {we}
+\def \surveylinkone {\href{https://**********}{https://**********}}
+\def \surveylinktwo {\href{https://**********}{https://**********}}
+
+\fi
+
+\title{\CourseName: Quest-based Learning to Engage Students Who Know Only High-School Geometry\footnote{\protect\input{copyright}}
+}
+
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+At \UniName, a liberal arts college, many students majoring in computer science, art, and design encounter computer graphics without prior exposure to linear algebra and multivariable calculus, which can cause frustration and disengagement when faced with the mathematical concepts presented in a traditional graphics curriculum. To address this challenge in liberal arts colleges, \pronoun{} developed the \textit{\CourseName} - a quest-based course that introduces core graphic concepts, such as geometric transformations, rendering, and shading, using high school geometry as a foundation.
+
+Grounded in experiential learning and narrative-driven learning, \CourseName{} immerses students in a fantasy world where students take on the role of apprentice mages, master various computer graphics spells through scrolls and complete quests. Each scroll enables students to explore graphic concepts interactively and engage with the mathematics behind graphics visually. Each quest combines story elements with programming challenges and real-time WebGPU visual feedback, creating a context that sustains motivation and lowers the barrier to abstract thinking. The open-ended nature of the difficulties invites students to personalize their solutions and promotes creative thinking.
+
+In this paper, \pronoun{} present the course design and analyze student survey data to examine how narrative framing and creative affordances influence engagement, confidence, and learning outcomes. Our findings suggest that narrative-driven and hands-on learning environments can make computer graphics more accessible while also promoting deeper conceptual understanding and artistic experimentation.
+\end{abstract}
+
+%% At most 10 pages
+
+\section{Introduction}
+At \UniName, a liberal arts college, the computer science curriculum does not require linear algebra or multivariable calculus as a prerequisite. The absence of this mathematical foundation presents a significant challenge for computer graphics instructors and has led to low enrollment in graphics courses among students. Because of low enrollment, computer graphics have not been offered for several years. To counter this, \pronoun{} created \CourseName{} (\CourseShortName) — a quest-based course built around high school geometry and WebGPU. Inspired by Sheldon's The Multiplayer Classroom \cite{Sheldon11}, \CourseShortName{} replaces lectures with interactive scrolls, assignments with fantasy quests, exams with trials, and the final project with a culminating final enchantment.
+
+Unlike simplified tooling approaches, \CourseShortName{} redefines graphics education by immersing students in a narrative where they cast graphics spells, write shaders, simulate transformations, and visualize geometry. Students use scrolls to study and interactively examine graphic concepts. They are tasked with completing quests that utilize the learned spells to create personalized solutions and experiment with them personally. To progress to the next level in this fantasy world, they need to pass the trials, which ensure their conceptual understanding of core graphic concepts. At the end of the course, the final enchantment showcase invites students to work together and synthesize their learning into a magical artifact of their own design, demonstrating both technical mastery and creative expression in a public celebration of their journey.
+
+This paper describes the \CourseShortName{} curriculum and explores its effectiveness through student surveys and project work. Our findings suggest that narrative-driven and hands-on environments, combined with creative autonomy, enhance accessibility and conceptual understanding in graphics education.
+
+\section{Related Work}
+The design of \CourseName{} draws on research in shader-first graphics pedagogy, interactive visual feedback, and narrative-driven learning. These studies collectively inform how \CourseShortName{} uses interactive shader feedback, storytelling, and creative exploration to make core graphic concepts accessible and motivating for students without prior exposure to linear algebra or low-level graphics programming.
+
+\subsection{Shader-First Graphics Pedagogy}
+Modern graphics pedagogy has increasingly shifted toward shader programming, with shaders used as entry points for student exploration. This change is driven by pedagogical and technical factors: shader programming allows students to reason about transformations, shading, and interaction in a direct and visually observable manner. Talton and Fitzpatrick's SIGCSE work on teaching with the OpenGL Shading Language emphasizes the pedagogical benefits of starting with shaders rather than fixed-function graphics pipelines \cite{Talton07}. Their course emphasized active experimentation with shader code - an approach that \CourseShortName{} adopts through its scrolls, which allows students to see the effect of code edits in real time using WebGPU.
+
+Fink \textit{et al.} extended this approach through a software-based programmable renderer, showing that a shader-first pipeline improves conceptual comprehension of rendering and lighting operations without the complexity of full OpenGL environments \cite{Fink13}. Following along the same line, \CourseShortName{} introduces graphic concepts, such as geometric transformations, shading, and physics-based simulation, through direct shader-level manipulation. However, it intentionally delays formal mathematical treatment, instead allowing intuition to emerge through visual feedback.
+
+The emphasis on starting with visual feedback before introducing theory provides an essential precedent for \CourseShortName{}'s experiential-first design: students learn by modifying shader code in a safe, exploratory context before formalizing these abstractions.
+
+\subsection{Visual Interaction and Conceptual Reinforcement}
+Even before the rise of shader-first teaching, tools like GraphicsMentor demonstrated the value of visual experimentation in conceptual learning. Nikolic and Shene showed that students who manipulated camera, light, and object parameters through a live interface developed stronger geometric intuition, even in the absence of explicit mathematical instruction \cite{Nikolic02}. By interacting directly with rendering parameters and seeing immediate results, students constructed mental models that supported later abstraction and understanding.
+
+\CourseShortName{} extends this principle. Each scroll is a minimal shader-powered sandbox where students can tinker with transformations, interpolation, or animation. For instance, a scroll on 2D projective geometric algebra might allow learners to adjust bivector coefficients and observe the resulting object motions unfold without requiring them first to understand the geometric product. By the time formal abstractions are introduced in quests or trials, students have already internalized key ideas through repeated, manipulable exposure. This scaffolding approach allows students to engage deeply with concepts that would traditionally require a stronger mathematical foundation.
+
+\subsection{narrative-driven Learning and Motivation}
+While visual feedback builds intuition and motivation, sustained engagement often requires additional framing to maintain momentum. One strategy is to embed technical content within a compelling narrative. Sheldon's The Multiplayer Classroom \cite{Sheldon11} formalizes this approach: students take on a character role, complete themed quests, and accumulate experience points as a substitute for grades. This structure transforms the classroom into a narrative-driven progression, where course content becomes part of the character development.
+
+Sheldon's framework has strong conceptual parallels with SIGCSE studies that show how storytelling and identity formation improve computing engagement. Storytelling Alice demonstrated that embedding programming into narrative-rich, character-driven environments significantly improved interest and self-efficacy, especially for students from underrepresented backgrounds \cite{Kelleher07}. Likewise, Parham-Mocello \textit{et al.} 's Story Programming study emphasized that learners benefit when the storyline is introduced before coding; doing so helps frame the content as purposeful and coherent \cite{Parham19}. Fantasy-based framing has also been studied empirically. Scott and Ghinea  \cite{Scott13} conducted a double-blind randomized controlled trial comparing a fantasy role-play debugging exercise to a standard control version. Their study found that students using the fantasy version showed statistically significant improvements in programming self-concept, suggesting that narrative framing can positively impact learner identity and motivation.
+
+Although this work focused on procedural programming, the narrative structure and motivation model can inform \CourseShortName's application to graphics education directly. \CourseShortName{} adopts the narrative structure fully: students play as apprentice mages, unlock graphics spells through scrolls and quests, level up by completing milestone trials, and finish it with a final enchantment. 
+
+\section{Course Design}
+\CourseName{} (\CourseShortName{})\footnote{The course syllabus at \linkthree} is structured around a fantasy-inspired progression that replaces lectures with scrolls, assignments with themed quests, and assessments with performance-based trials. Students play the role of apprentice mages, learning ``graphics spells'' through scrolls (guided shader class exercises), completing quests (open-ended mini-projects), and culminating in a final enchantment (capstone showcase). The course is divided into three progressive phases, each designed to balance conceptual progression with increasing creative freedom.
+
+\subsection{Scrolls: Shader-Based Exploration and Visual Feedback}
+\begin{figure}[t]
+\centering
+\includegraphics[height=2.1cm]{reflectpoint}\quad
+\includegraphics[height=2.1cm]{reflectspot}\quad
+\includegraphics[height=2.1cm]{reflectdir}
+\caption{Students follow scroll instructions to modify shader code to change lighting implementation from point light (left) to spotlight (middle) and directional light (right).}
+\label{fig:scroll}
+\end{figure}
+
+During the first two phases, students work through twenty-seven scrolls (interactive in-class exercises) that anchor abstract concepts in immediate visual feedback. Scrolls are structured to reflect best practices in shader-first pedagogy \cite{Talton07, Fink13}: students are introduced to a graphic concept through minimal narrative setup, brief theoretical framing, and incrementally editable shader code. Using WebGPU, students modify code and observe live visual outcomes in the browser.
+
+This structure draws from work on exploratory visual learning \cite{Nikolic02}: rather than introducing formulas first, scrolls let students build intuition by manipulating effects directly. For instance, when learning 2D projective geometric algebra, students explore the impact of bivector coefficients on object motion before formalizing the geometric product. When studying lighting, students adjust WGSL shaders to implement point, spot, and directional lights (Fig.~\ref{fig:scroll}). These activities scaffold understanding while maintaining a strong sense of agency and play.
+
+\subsection{Quests: Open-Ended Application and Thematic Progression}
+\begin{figure}[t]
+\centering
+\includegraphics[height=2.1cm, width=3.5cm]{demo1}\quad
+\includegraphics[height=2.1cm, width=3.5cm]{student1a}\quad
+\includegraphics[height=2.1cm, width=3.5cm]{student1b}\\
+\vspace{0.5mm}\hspace{0.1mm}
+\includegraphics[height=2.1cm, width=3.5cm]{demo2}\quad
+\includegraphics[height=2.1cm, width=3.5cm]{student2a}\quad
+\includegraphics[height=2.1cm, width=3.5cm]{student2b}
+\caption{Upper: Left is the instructor's demo of a 2D solar system; middle and right are students' creative solutions to the same quest. Lower: Left is the demo of the environment and texture maps; middle and right are student quest implementations.}
+\label{fig:quest}
+\end{figure}
+
+Building on scroll foundations, weekly quests challenge students to integrate concepts in creative ways. Each quest is introduced within a fantasy scenario that aligns with recently learned scroll material. Unlike fixed-procedure labs, quests are open-ended: they ask students to solve problems using the ``spells'' they have learned from the scrolls but leave space for visual experimentation, technical improvisation, and narrative invention.
+
+The first phase includes five quests centered on 2D graphics and physical simulation. Students begin by rendering shapes using WebGPU (Quest 1), implementing animations using projective geometric algebra (Quest 2), and learning shading techniques (Quest 3). Quests 4 and 5 extend this into compute-based particle systems, spring simulations, and collision detection. These quests not only reinforce the shader-first model but also give students the creative autonomy discussed in \cite{Kelleher07, Parham19}.
+
+After completing their first trial, a performance-based checkpoint that evaluates conceptual understanding and shader fluency, students progress to the adept rank and begin phase two, which transitions into 3D graphics. This phase covers transformation matrices, camera projection, ray tracing, and procedural volume rendering. Quests 6–10 guide students through increasingly abstract levels while maintaining narrative framing. Student solutions vary widely (Fig.~\ref{fig:quest}), reflecting the expressive potential of the format.
+
+A second trial assesses mastery of ray-based rendering and geometric reasoning before students progress to mage rank and proceed to their final enchantment.
+
+\subsection{The Final Enchantment: Synthesis and Showcase}
+\begin{figure}[t]
+\centering
+\includegraphics[height=2.6cm]{masterpiece1}\quad
+\includegraphics[height=2.6cm]{masterpiece2}\quad
+\includegraphics[height=2.6cm]{masterpiece3}
+\caption{Students' masterpieces: Minecraft VR (left), Fireboy and Watergirl (middle), and fluid simulation (right)}
+\label{fig:masterpiece}
+\end{figure}
+
+The final enchantment serves as both a capstone and a celebration. Working individually or in teams, students define a contract for a self-directed graphics project that must integrate multiple graphic techniques from the course. These are presented as magical artifacts, and students are asked to design their own, estimate the effort required, and incorporate them into their narrative. Students are not simply proving proficiency, but they are authoring a final artifact that aligns technical fluency with creative expression \cite{Sheldon11, Scott13}. The showcase is public and celebratory, reinforcing learner identity and inviting peer recognition. Spring 2025 projects included a ray-traced Minecraft in VR, a WebGPU remake of Fireboy and Watergirl, and a real-time fluid simulation (Fig.~\ref{fig:masterpiece}), all developed from scratch using WebGPU, code, and skills that students learned from scrolls and quests \footnote{See demonstration here: \href{https://bucknell-graphics.github.io/}{https://bucknell-graphics.github.io/}}.
+
+By placing narrative framing, shader-based experimentation, and open-ended creation at the core of its design, \CourseShortName{} demonstrates that computer graphics can be taught in a way that is both accessible and rigorous, inviting creative expression while supporting conceptual learning.
+
+\section{Course Evaluation and Student Feedback}
+To explore how \CourseShortName{} influenced student engagement, confidence, and conceptual understanding, particularly through its use of narrative framing and creative autonomy, \pronoun{} administered three structured surveys throughout the semester. Two custom-designed instruments were distributed after each mid-semester trial, and a summative course evaluation was collected via the university's official system in the final week.
+
+The mid-semester surveys\footnote{Survey forms can be found here: \surveylinkone{} and \surveylinktwo{}} combined 5-point Likert items, multiple-choice questions, and open-ended prompts aligned with our research themes: narrative immersion, motivation, conceptual clarity, and perceived effectiveness of the quest-based structure. %The five 5-point Likert items are:
+%\begin{enumerate}
+%    \setlength\itemsep{-3pt}
+%    \item How much did you enjoy the course's narrative-driven format?  
+%    \item Did you feel immersed in the fantasy narrative while working on course assignments?  
+%    \item To what extent did the story elements help you think more deeply about the course concepts?  
+%    \item Did the quest-based format motivate you to complete assignments more than a traditional approach would have?  
+%    \item How effective was the quest-based format in helping you understand computer graphic concepts?  
+%\end{enumerate}
+%The three multiple-choice questions are:
+%\begin{enumerate}
+%    \setlength\itemsep{-3pt}
+%    \item If given the choice, would you prefer: A narrative-driven, quest-based format / A traditional, instruction-based format / A mix of both
+%    \item What aspects of the narrative-driven format did you find most beneficial? (Check all that apply) Increased engagement / Clear sense of progression / More creative problem-solving opportunities / Easier to retain information / More enjoyable coursework
+%    \item What aspects of the narrative-driven format did you find challenging or unhelpful? (Check all that apply) Too much focus on the story rather than the content / Confusing terminology or analogies / Harder to follow than traditional assignments / Did not improve my understanding of the material
+%\end{enumerate}
+The final evaluation added course-specific items to the institutional feedback framework.
+
+\subsection{Mid-Semester Survey 1: 2D Graphics Phase}
+The first survey, administered to 15 of 17 students (88\% response rate) after the first trial, focused on the introductory 2D graphics. Results indicated high engagement with both the quest model and narrative structure. 80\% of students reported enjoying the narrative format ``a lot'' or ``a great deal'' (ratings of 4 or 5), 80\% found themselves feeling immersed in the fantasy narrative (ratings of 3 or above), and 73\% agreed that the story elements helped them think more deeply about graphic concepts (ratings of 3 or above). Similarly, 87\% stated that the quest format increased their motivation compared to traditional assignments (ratings of 3 or above), and 93\% agreed that the quest-based format helped them effectively understand graphic concepts. 
+
+Only one of 17 preferred the traditional format, while more than half preferred the narrative-driven approach, with the rest opting for a mix of both. Students credited the narrative-driven model with more enjoyable coursework (80\%), a sense of progression through the course (60\%), and more creative problem-solving opportunities (60\%). However, more than half (60\%) found the narrative approach to be confusing due to its use of unfamiliar terminology and analogies. One student wrote, `I really like the quest format of having a single larger assignment per week.' Another noted, `I think using the narrative format for abstract things is fine; calling daily class notes ``scrolls'' and weekly assignments ``quests'' is fine. However, I feel that calling actual concepts by these names is more confusing than anything. For example, calling bind groups ``binding spells'' just makes things more confusing.'
+
+\subsection{Mid-Semester Survey 2: 3D Graphics Phase}
+The second survey (11 of 17 students; 65\% response rate) was distributed after the second trial, following the completion of the 3D graphics scrolls. Student sentiment remained generally positive but showed a decrease in motivation as the course content became increasingly complex mathematically. Only 73\% of students rated their enjoyment of the narrative format at a higher level (4 or 5), and two students now indicated a preference for traditional formats. Just 64\% found the story elements helpful in understanding 3D topics (ratings 3 or above).
+
+Nonetheless, 91\% of students still found the quest format helpful for structuring their learning (ratings 3 or above), and several highlighted its role in supporting shader fluency and experimentation. However, open-ended responses revealed a recurring need for more direct technical instruction. Students noted difficulty connecting fantasy framing with shader logic because of some ``confusing terminology''. Despite these challenges, many continued to appreciate the freedom to approach quests creatively and incrementally. One student noted: `Yes, I think narrative-driven learning could be beneficial in other CS classes to make courses more engaging and memorable, and students can refer back to previously learned topics more easily if they are more memorable in a narrative-driven format.'
+
+\subsection{Final Course Evaluation}
+The final university-administered evaluation, conducted with 12 of 17 students (70.6\% response rate), provided a comprehensive view of student learning outcomes and perceptions. All respondents reported learning ``a lot'' or ``a great deal'', and 75\% indicated moderate or strong proficiency in WGSL shader programming. Confidence levels remained high for 2D graphic concepts (75\%), though dropped for 3D content (50\%).
+
+Course design elements also received strong endorsement. 83\% of students found the scrolls helpful or very helpful for progressive learning, and 92\% agreed that the quests supported shader development. 83\% reported that the final enchantment provided an effective opportunity to synthesize skills and learn from peers. Open-ended feedback highlighted a sense of accomplishment alongside concerns about workload and pacing. One student reflected, `I was greatly challenged in this course and faced roadblocks I never thought I could get through.' These responses align with mid-semester surveys and reinforce the importance of striking a balance between narrative framing and structured scaffolding.
+
+\section{Lessons Learned}
+
+The evaluation of \CourseShortName{} through two mid-semester surveys and a final course evaluation outlined several important takeaways for the next iteration. While the responses demonstrated strong engagement and significant learning gains in the course's narrative and scaffolded structure, the feedback also highlighted key challenges related to pacing, technical clarity, and workload distribution.
+
+\subsection{Strengths}
+Students overwhelmingly reported that they learned ``a great deal'' from the course and rated the instruction as very effective or effective. The scrolls and quests were frequently cited as helpful in building both confidence and proficiency in shader programming, with over 90\% of students indicating that weekly quests were effective in helping them become proficient in WGSL.
+
+The narrative framing and quest-based structure were well received, with students noting that the course felt cohesive and thoughtfully designed, particularly in how the scrolls, quests, and final enchantment built on one another throughout the semester. Multiple students noted that they were pushed to overcome challenges they had `never thought [they] could get through', and that they were proud of the work they produced, especially in the final enchantment.
+
+\subsection{Challenges}
+A recurring theme in student feedback was the high cognitive load and fast pace of the course. Several students expressed that the workload, particularly in later 3D content, was intense and suggested that the course might be split into two parts (2D and 3D) to allow for deeper engagement. Others recommended simplifying or reducing the number of quests or providing more targeted technical instruction on WGSL (shader programming) to reduce ramp-up time.
+
+Scrolls were effective as learning tools, but some students found them challenging to interpret without additional guidance or examples. Suggestions included adding more example code, embedding inline documentation, and supplementing with optional video walkthroughs. The final enchantment was widely valued, but its time demands were also flagged. One student estimated it required over 40 hours of work and suggested spreading it over more weeks or integrating debugging time more explicitly.
+
+\section{Conclusion and Future Directions}
+
+\CourseShortName{} demonstrated that a narrative-driven, shader-first approach can make computer graphics more accessible, engaging, and creatively rewarding, particularly for students without prior exposure to advanced mathematics. The scroll–quest–trial structure sustained motivation, supported conceptual understanding, and encouraged students to take ownership of their learning through open-ended exploration and visual experimentation. While the narrative framing was most effective during the 2D phase, the underlying structure continued to support learning even as the content became more complex.
+
+Looking ahead, future offerings will focus on enhancing technical scaffolding, adjusting pacing, and expanding asynchronous support. Scrolls will be revised to include more guided shader mini-lessons and example-driven explanations, especially for WGSL and projective geometric algebra. The 3D phase will be modularized to ease the conceptual load and allow for more focused progression. To better support self-paced learning, additional resources such as annotated code and concise instructional videos will be developed. The final enchantment timeline will also be restructured to include phases for planning, debugging, and peer feedback. Together, these changes aim to preserve the narrative-driven approach and creative foundations while strengthening the scaffolding needed for all students to succeed.
+
+\newpage
+
+\section*{Acknowledgment}
+I would like to express my sincere gratitude to the students - \textit{Aiden Ren, Clea Ramos, Jackson Rubiano, Jesse Tomaskovic, Kevin Duong, Luke Snyder, Nolan Sauers, Ramon Asuncion Batista, TJ Freeman, Titus Weng, and others}, who generously gave their consent for the use of screenshots of their quests and projects in this paper for demonstration purposes. Your creativity and openness to share your work have enriched this article, and I am proud to highlight your contributions.
+
+\printbibliography
+
+\end{document}
