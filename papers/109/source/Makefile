@@ -21,7 +21,7 @@ release: all mostlyclean
 all: ccscse25_109.pdf
 
 ccscse25_109.pdf: ccscse25_109.tex 
-	$(LATEXMK) -pdf -bibtex $^
+	$(LATEXMK) -pdf -bibtex -shell-escape $^
 
 # Clean targets
 mostlyclean:
