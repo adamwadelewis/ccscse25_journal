@@ -1,0 +1,437 @@
+\documentclass{article}
+
+\input{preamble}
+
+\addbibresource{references.bib}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{pgf,tikz}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{graphpap}
+\usepackage{overpic}
+\usepackage{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{listings}
+
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{url}
+\usetikzlibrary{shapes,arrows,positioning,fit,backgrounds}
+
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage[noend]{algpseudocode}% http://ctan.org/pkg/algorithmicx
+
+\usepackage{CJKutf8}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\tableref}[1]{Table~\ref{table:#1}}
+\newcommand{\defref}[1]{Definition~\ref{def:#1}}
+\newcommand{\logicref}[1]{Rule~(\ref{logic:#1})}
+\newcommand{\algoref}[1]{Algorithm~\ref{algo:#1}}
+\newcommand{\lineref}[1]{Line~\ref{line:#1}}
+\newcommand{\sectref}[1]{Section~\ref{sec:#1}}
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}}
+\newcommand{\equationref}[1]{Equation~\ref{eq:#1}}
+\newcommand{\thmref}[1]{Theorem~\ref{thm:#1}}
+
+\newcommand\todo[1]{{\color{red}#1}}
+
+\title{What Recent Research on Large Reasoning Models Reveals About AI Limitations and Computing Education\footnote{\protect\input{copyright}}
+}
+
+\author{
+Chris Alvin\affmark[1], Lori Alvin\affmark[2]\\
+\affmark[1]Computer Science Department\\
+\affmark[2]Mathematics Department\\
+Furman University\\
+Greenville, SC 29613\\
+\email{\{ chris.alvin\footnote{Corresponding author}, lori.alvin \}@furman.edu}\\
+}
+
+% \author{
+% Chris Alvin\\
+% Computer Science Department\\
+% Furman University\\
+% Greenville, SC 29613\\
+% \email{\{ chris.alvin\footnote{Corresponding author} \}@furman.edu}\\
+% }
+
+\newenvironment{myitemize}{\begin{list}{$\bullet$}
+{\setlength{\topsep}{1mm}\setlength{\itemsep}{0.25mm}
+\setlength{\parsep}{0.1mm}
+\setlength{\itemindent}{0mm}\setlength{\partopsep}{0mm}
+\setlength{\labelwidth}{15mm}
+\setlength{\leftmargin}{4mm}}}{\end{list}}
+
+\newenvironment{myenumerate}{\begin{list}{\arabic{enumi}.}
+{\setlength{\topsep}{1mm}\setlength{\itemsep}{0.25mm}
+\setlength{\parsep}{0.1mm}
+\setlength{\itemindent}{0mm}\setlength{\partopsep}{0mm}
+\setlength{\labelwidth}{15mm}
+\setlength{\leftmargin}{4mm}
+\usecounter{enumi}}}{\end{list}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Recent developments in Large Reasoning Models (LRMs) such as OpenAI's o1/o3 series and Claude Thinking have generated some considerable interest from the educational community.
+However, new research reveals some fundamental limitations in the reasoning capabilities of these models that have important implications for computing and computer science education.
+This paper considers findings from controlled puzzle environments that demonstrate three distinct performance `regimes' and systematic reasoning failures in state-of-the-art LRMs.
+Our goal is to consider the educational implications of these limitations for computer science pedagogy, particularly with respect to assessment design, pedagogical strategies, and skill development priorities.
+We believe that, rather than replacing human reasoning instruction, these limitations highlight the continued importance of foundational computational thinking, algorithmic reasoning, and problem-solving skills in computer science education.
+\end{abstract}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Introduction}
+
+Large Language Models (LLMs) and Large Reasoning Models (LRMs) have sparked debate about their potential impact on computer science (CS) education, education as a whole, and industry.
+These sophisticated AI systems, such as OpenAI's o1/o3 series \cite{openai2024o1}, DeepSeek-R1 \cite{deepseek2025r1}, and Claude 3.7 Sonnet Thinking \cite{anthropic2025claude}, are designed to generate detailed reasoning traces before providing answers to complex problems.
+Unlike traditional Large Language Models (LLMs), LRMs explicitly demonstrate step-by-step thinking processes, leading to speculation about their potential for a paradigm shift in education and assessment.
+
+However, recent research by Shojaee et al. \cite{shojaee2025illusion} provides interesting  insight into fundamental limitations of these current reasoning models.
+Through systematic evaluation using easily understood, controllable puzzle environments, their work reveals that despite sophisticated self-reflection mechanisms, LRMs exhibit predictable failure patterns and scaling limitations that have not been discussed in educational contexts.
+
+This paper examines the educational implications of these findings for CS pedagogy.
+We consider how the documented limitations of LRMs should inform pedagogical decisions, assessment strategies, and curriculum design in CS programs, particularly at small and liberal arts institutions where close faculty-student relationships enable greater discussion among students and faculty.
+We believe that, rather than representing temporary technical challenges, these limitations may actually strengthen the case for traditional CS education approaches while suggesting new opportunities for meaningful human-AI collaboration in learning environments.
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Background}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\textbf{Understanding Large Reasoning Models.}
+LRMs represent an evolution of traditional LLMs, incorporating explicit reasoning mechanisms designed to tackle complex problem-solving tasks.
+Unlike standard LLMs that generate responses directly, LRMs produce detailed ``thinking'' processes: traces of intermediate reasoning steps that can be analyzed.
+
+This approach builds on \textbf{Chain of Thought (CoT)} prompting \cite{wei2022chain}, where models show step-by-step reasoning rather than jumping to conclusions.
+The technique has become foundational to reasoning model design, enabling researchers to examine not just the final answers but also the intermediate problem-solving process.
+These internal reasoning steps, called \textbf{thinking tokens} or reasoning traces, represent the solving work that LRMs generate before providing final answers.
+% These traces can then be extracted and analyzed to understand model reasoning patterns and identify where failures occur.
+
+The behavior of these models can be tuned through parameters like \textbf{temperature}, which controls the randomness (or creativity) of model responses.
+Lower temperature values yield more deterministic responses while higher temperatures promote creative generation \cite{holtzman2019curious}.
+However, all models are limited by their \textbf{token budget}: the maximum number of tokens (roughly word-like units) they can process or generate per interaction, directly constraining the depth and complexity of reasoning.
+
+Evaluating these models requires more sophisticated metrics than simple accuracy measurements.
+\textbf{\texttt{Pass@k} evaluation} \cite{chen2021}, commonly used in assessing generated code, measures the probability that at least one correct solution appears in $k$ attempts, providing a more nuanced view of the capabilities of the model compared to the accuracy of single attempts.
+This approach recognizes that in real-world applications, users often generate multiple attempts when working with AI systems.
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\textbf{Assessment Challenges in AI Era.}
+The integration of AI tools in education has created significant challenges for assessment design.
+Traditional evaluation methods face threats from AI capabilities, leading to concerns about academic integrity and the validity of student evaluation \cite{ateeq}.
+However, understanding specific AI limitations can inform more robust assessment strategies.
+
+Data contamination represents a critical issue where AI models have been exposed to test problems during training, making standard benchmarks unreliable for evaluation \cite{carlini2021extracting,xu2024benchmark}.
+This contamination problem has particular relevance for CS education, where many traditional programming and algorithmic problems have inevitably been included in training datasets.
+
+%
+%%%%%%%%%%%%%%%%%%%%
+%
+\textbf{Computational Thinking and Problem Solving.}
+CS education has long emphasized computational thinking through four components \cite{computational}.
+\textbf{Decomposition} involves breaking problems into smaller, more manageable parts.
+\textbf{Pattern recognition} identifies similarities across problems.
+\textbf{Abstraction} involves ignoring irrelevant details while focusing on essential features.
+Last, \textbf{algorithm design} develops step-by-step solutions to problems.
+Understanding how LRMs perform on these fundamental cognitive tasks provides crucial insights for curriculum design and pedagogical strategy.
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Overview of Findings by Shojaee et al.}
+
+Shojaee et al. \cite{shojaee2025illusion} used controllable puzzle environments to systematically assess LRM reasoning at varying levels of complexity.
+Unlike traditional benchmarks prone to data contamination, these environments, including Blocks World puzzles, River Crossing, Checker Jumping, and Tower of Hanoi, allow exact control over problem complexity while preserving consistent logical structures.
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\textbf{Three Reasoning Regimes.}
+The research suggested three different performance regimes based on the complexity of the problem, each revealing important differences in how models respond to varying levels of challenge.
+In the \textbf{low complexity regime}, standard LLMs outperformed LRMs, achieving better accuracy with greater token efficiency.
+As is sometimes the case with our students, this result suggests that advanced reasoning mechanisms might cause models to `overthink' simple problems, adding unnecessary complexity.
+As complexity increased, the \textbf{medium complexity regime} emerged where LRMs demonstrated clear advantages over standard models.
+Their explicit reasoning capabilities provided measurable benefits that justified the additional computational costs for moderately complex tasks.
+However, in the \textbf{high complexity regime}, both LLMs and LRMs experienced complete performance collapse despite models operating well below their token budget limits.
+
+%
+%%%%%%%%%%%%%%%%%%%%
+%
+\textbf{Reasoning Collapse and Scaling Limits.}
+Perhaps most significantly, the research revealed systematic reasoning collapse beyond model-specific complexity thresholds.
+As problems grew more difficult, models actually reduced their reasoning effort (measured in thinking tokens) despite having ample computational resources.
+Even when provided with complete algorithms for solving problems, LRMs failed to act on them reliably, suggesting fundamental limitations in logical processing.
+Performance also varied dramatically across puzzle types of similar complexity, succeeding on problems requiring 100+ sequential moves in one domain while failing on 11-move problems in another domain.
+These findings highlight fundamental limitations in current model scalability but offer pedagogical hope---like our students, even advanced AI systems struggle when complexity increases, reinforcing the value of guided reasoning in education.
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\textbf{Analysis of Reasoning Traces.}
+Detailed examination of LRM thinking processes revealed complexity affects their thinking patterns, exposing basic flaws in current reasoning approaches and notable weaknesses in their ability to self-correct.
+For simple problems, models exhibited an \textit{overthinking phenomenon}, often identifying correct solutions early but continuing to explore incorrect alternatives, wasting computational resources.
+At moderate complexity levels, correct solutions showed \textit{late convergence}, emerging only after extensive exploration of incorrect paths.
+Beyond certain complexity thresholds, models experienced \textit{complete failure}, unable to generate any correct solutions regardless of the allowed reasoning length.
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Educational Implications for CS}
+
+The systematic limitations identified by Shojaee et al. \cite{shojaee2025illusion} have direct implications for CS education.
+In this section, we analyze key conclusions through a `finding-implication' framework, where findings represent specific limitations and implications explore how these findings should inform pedagogical decision, curriculum design, and assessment strategies.
+This approach attempts to bridge the gap between bleeding-edge AI research and practical educational applications.
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\subsection{Assessment Design and Academic Integrity}
+
+\begin{myitemize}
+\item \textbf{Finding}: Providing complete algorithms to LRMs does not improve their performance on execution tasks.
+
+\textbf{Implication}: This finding implies that educators (currently) should not hesitate to provide algorithmic guidance, pseudocode, or detailed specifications in assignments.
+In this case, discovering algorithms is not the main challenge, the real difficulty lies in executing them reliably through clear and sequential reasoning.
+This continues to be a foundational skill for CS students, particularly given that, as educators can attest, following instructions is not always students' top priority.
+
+\item \textbf{Finding}: LRMs exhibit complete accuracy collapse beyond certain complexity thresholds, regardless of available computational resources.
+
+\textbf{Implication}: Educators can design assessments with appropriate complexity levels that reliably differentiate between student work and AI assistance.
+Programming assignments that involve more than $15$ logical steps, require managing complex states, or demand deep algorithmic reasoning may naturally be resistant to current AI capabilities.
+This suggests that well-designed capstone projects, complex data structure implementations, and multi-phase algorithm development remain viable assessment approaches.
+
+\item \textbf{Finding}: LRMs show inconsistent performance across different problem domains of similar complexity.
+
+\textbf{Implication}: Students relying heavily on AI tools would likely exhibit similarly inconsistent performance patterns.
+This supports the use of varied assessment formats including domain-specific applications or cross-disciplinary programming projects.
+Thus, using diverse problem types within assignments can expose gaps in student understanding.
+\end{myitemize}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\subsection{Curriculum Design and Skill Prioritization}
+
+\begin{myitemize}
+
+\item
+\textbf{Finding}: The three performance regimes indicate to educators which complexity levels work best for specific learning goals.
+
+\textbf{Implication}: Curriculum design should strategically leverage these regimes across all course levels.
+For low-complexity tasks such as syntax practice and basic concept reinforcement as shown in \tableref{skills-matrix}, courses can safely incorporate AI collaboration regardless of level so that students focus cognitive effort on higher-level reasoning tasks.
+Medium-complexity problems (e.g., multi-step algorithms, structured problem-solving, etc.) offer opportunities for guided AI collaboration where students can learn from reasoning demonstrations.
+Code implementation and documentation, classified as medium AI-resistance skills in \tableref{skills-matrix}, benefit from this guided collaboration approach where students maintain active oversight roles.
+High-complexity challenges (e.g., designing novel algorithms, implementing a solution using custom APIs) should prioritize human-centered learning, where students build skills beyond the reach of current AI.
+
+\item
+\textbf{Finding}: LRMs demonstrate poor self-correction, fixating on early incorrect solutions.
+
+\textbf{Implication}: It becomes essential for students to develop and refine debugging methodologies, systematic testing approaches, and analysis of errors and exceptions.
+CS programs can emphasize metacognitive strategies when problem-solving approaches are not working.
+This includes learning to identify dead ends early, systematically backtrack to previous decision points, and maintain solution quality during development. 
+Visual problem-solving techniques, such as drawing diagrams, sketching algorithm flows, and creating state representations, become particularly valuable for developing these meta-cognitive skills.
+These capabilities for reflective thinking and visual reasoning represent areas where current AI falls short, making them essential competencies for students who must learn to guide and complement AI tools effectively.
+
+\begin{table}[t!]
+\centering
+\caption{CS competency classification by AI resistance level and recommended pedagogical approaches.}
+\label{table:skills-matrix}
+\small
+\begin{tabular}{|l|c|c|l|}
+\hline
+\textbf{CS Competency} & \textbf{AI Resistance} & \textbf{Priority} & \textbf{Approach} \\
+\hline
+Algorithm Design & High & Critical & Human-focused \\
+System Architecture & High & Critical & Human-led \\
+Debugging \& Testing & High & Critical & Human-centered \\
+Code Review & High & Critical & Human expertise \\
+Mathematical Foundations & High & Critical & Traditional \\
+\hline
+Code Implementation & Medium & High & Guided AI collab \\
+Documentation & Medium & High & AI + review \\
+\hline
+Syntax Learning & Low & Medium & AI-assisted \\
+\hline
+\end{tabular}
+\end{table}
+
+\item
+\textbf{Finding}: Models are poor at sequential planning tasks requiring sustained state tracking and logical consistency.
+
+\textbf{Implication}: Core CS concepts like algorithm correctness and complexity analysis remain essential (see \tableref{skills-matrix}).
+At the implementation level, students must develop precise mental models through hands-on work with pointers, memory management, and debugging.
+Medium-complexity skills bridge theory and practice (e.g., recursive algorithm design, data structure trade-offs, and program invariants, etc.).
+Meanwhile, lab-based experiences in, for example, compiler design, database design, and software engineering offer valuable opportunities to cultivate disciplined, sequential thinking and uniquely human problem-solving abilities.
+\end{myitemize}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%
+%
+\subsection{Pedagogical Strategies}
+
+\begin{myitemize}
+\item
+\textbf{Finding}: LRMs can generate verbose, inefficient reasoning traces, continuing work after finding correct solutions and fixating on incorrect approaches.
+
+\textbf{Implication}: Teaching students to communicate clearly and write concisely becomes increasingly important.
+In programming contexts, they must learn to distinguish genuine reasoning from AI-generated patterns.
+This reinforces the value of code documentation, algorithm explanation, and technical presentation as essential components of a quality CS education.
+
+\item
+\textbf{Finding}: Different reasoning models break down at different levels of complexity and show varying strengths across domains.
+
+\textbf{Implication}: Human teams can overcome individual limitations in ways current AI collaboration cannot.
+Thus, collaborative learning approaches become increasingly valuable, as group programming projects, code review processes, and peer debugging sessions cultivate complementary reasoning skills that AI cannot replicate.
+
+\item
+\textbf{Finding}: \texttt{Pass@k} evaluation shows that while multiple attempts boost AI success, the gains diminish and vary by problem type and complexity.
+
+\textbf{Implication}: When integrating AI tools into learning, limit the number of attempts to promote thoughtful engagement over trial-and-error.
+This encourages deliberate practice and deeper problem analysis, reducing reliance on brute-force computation.
+
+\end{myitemize}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\subsection{Research Methods and Critical Evaluation}
+
+\begin{myitemize}
+
+\item
+\textbf{Finding}: The research shows that data contamination in benchmarks skews conclusions about AI capabilities.
+
+\textbf{Implication}: CS programs should prioritize experimental design, control methods, and critical evaluation to equip students with the skepticism needed to assess the strength and limitations of AI in a tech-driven workplace.
+
+\item
+\textbf{Finding}: Shojaee et al. \cite{shojaee2025illusion} found that controllable experimental environments provided more reliable insights than traditional benchmarks.
+
+\textbf{Implication}: Courses teaching research methodologies should teach fair evaluation design and bias detection in AI assessments, preparing students to make informed decisions about AI adoption and limitations in their careers.
+
+\end{myitemize}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\subsection{Programming and Software Development}
+
+\begin{myitemize}
+    
+\item
+\textbf{Finding}: LRMs exhibit fundamental limitations in logical step execution and subsequent verification.
+
+\textbf{Implication}: Again, emphasis on testing methodologies, formal verification principles (e.g., precondition / postcondition, assertions, model checking, etc.), and systematic debugging becomes more crucial.
+As shown in \tableref{skills-matrix}, these debugging and testing skills represent high AI-resistance competencies where human oversight remains essential.
+
+\item
+\textbf{Finding}: Shojaee et al. \cite{shojaee2025illusion} found that models demonstrate poor performance on problems requiring exact computation and algorithmic precision.
+
+\textbf{Implication}: Mathematical foundations, algorithm analysis, and computational complexity remain core competencies.
+Classified as critical, high AI-resistance skills in \tableref{skills-matrix}, these algorithmic principles require deep student understanding to effectively guide, verify, and complement AI tools in professional settings.
+\end{myitemize}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\subsection{Cross-Curricular Applications}
+
+\begin{myitemize}
+
+\item
+\textbf{Finding}: Reasoning model limitations appear to be fundamental rather than domain-specific.
+
+\textbf{Implication}: These limitations reflect core reasoning challenges.
+Thus, the computational thinking skills that CS education develops---logical reasoning, systematic problem decomposition, and algorithmic thinking---represent uniquely human capabilities with broad disciplinary value.
+This idea supports CS requirements in liberal arts curricula and strengthens the case for interdisciplinary programs that integrate computational thinking.
+
+\item
+\textbf{Finding}: The overthinking effect highlights inefficient use of resources in AI reasoning.
+
+\textbf{Implication}: This demonstrates that teaching resource management, efficiency analysis, and optimization principles becomes increasingly relevant beyond CS.
+These skills support applications in data science and computational modeling across academic departments.
+
+\item
+\textbf{Finding}: Ballon et al. \cite{ballon2025thinkharder} conducted research on mathematical reasoning that motivated the systematic puzzle evaluation by Shojaee et al. \cite{shojaee2025illusion}.
+They found that discrete mathematics stands out as a token-intensive domain and that a longer CoT does not improve performance.
+In contrast, foundational mathematical areas like algebra and calculus consumed fewer tokens.
+
+\textbf{Implication:} This evidence reinforces the reliability of complexity-based AI limitations identified through puzzle environments.
+This demonstrates that educators can apply these complexity principles beyond CS.
+For example, problems with heavier combinatorial or multi-step reasoning load (e.g., counting problems, set theoretic inclusion/exclusion problems, etc.) are more resistant to AI-assistance than procedural, algorithmic problems (e.g., modulo-based equivalence classes, proof by induction of summation formulae, etc.).
+By designing assignments that focus on multi-step reasoning, faculty from all disciplines can more accurately assess student knowledge.
+\end{myitemize}
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Limitations and Future Considerations}
+
+The research by Shojaee et al. \cite{shojaee2025illusion} provides valuable insights; however, several limitations affect the generalizability of their findings to educational contexts.
+The puzzle environments represent a narrow slice of reasoning tasks compared to the breadth of problems in CS education.
+The deterministic nature of puzzle validation may not capture real-world programming challenges where multiple valid solutions exist and creativity plays a larger role.
+The research relied primarily on black-box API access, limiting analysis of internal mechanisms relevant for educational applications.
+While AI models will continue to improve, the systematic nature of these reasoning limitations across multiple state-of-the-art models suggests deeper challenges in current reasoning approaches rather than merely scaling issues.
+AI research typically advances by addressing such limitations, so these issues may well be resolved with time.
+
+The puzzle environments selected by Shojaee et al. \cite{shojaee2025illusion} are distinct from the types of problems that are often assigned within undergraduate courses.
+These puzzles often feel overwhelming to students as they require exploration rather than immediate application of techniques or algorithms they have been explicitly taught.
+Additionally, the amount of time that students must invest in exploration before they are able to synthesize a solution is often beyond the expectations of prior coursework.
+The research by Shojaee et al. seems to mirror our experiences in the classroom in introducing more creative problems that are not procedural in nature; students tend to struggle with new problems that require pushing the boundaries of their knowledge.
+The pitfalls that AI faces are similar in nature to the pitfalls that students face.
+
+The implications drawn from this research assume certain educational contexts that may not apply universally.
+Small class sizes and close faculty-student relationships, while common at many institutions, enable more nuanced approaches to AI integration than might be feasible in larger educational settings.
+The focus on controlled problem environments may not fully capture the collaborative and iterative nature of real-world software development, where AI tools may offer distinct value.
+However, student populations may vary significantly in their prior AI exposure and comfort levels, affecting how these tools integrate into learning processes.
+
+
+While the research identifies fundamental limitations in current reasoning architectures, continued technological development may address some identified issues.
+Educational institutions must balance their preparation for current technological realities with an anticipation of future developments.
+The emphasis on fundamental reasoning skills suggested by this research appears robust to technological change, as these capabilities remain valuable regardless of AI advancement.
+
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Conclusions}
+
+The research examining LRM limitations provides crucial guidance for CS education in this AI era.
+Rather than suggesting wholesale changes to curriculum or pedagogy, the findings support a nuanced approach that leverages current AI capabilities while strengthening uniquely human reasoning skills.
+The identification of three distinct performance regimes offers a framework for strategic AI integration: utilizing cost-effective standard models for basic concept reinforcement, engaging with reasoning models for intermediate complexity learning, and emphasizing human-centric approaches for advanced problem-solving that exceeds current AI capabilities.
+
+Perhaps most importantly, the documented limitations in algorithmic execution, verification, and logical consistency highlight the continued importance of foundational CS education.
+Skills in debugging, testing, formal reasoning, and systematic problem decomposition remain not only relevant but essential for effective human-AI collaboration.
+For CS educators, these findings suggest confidence in traditional pedagogical approaches while identifying specific opportunities for meaningful integration with current AI tools.
+Assessment strategies can be designed with complexity thresholds in mind, curriculum can be structured to leverage appropriate AI capabilities, and skill development can focus on areas where human reasoning provides irreplaceable value.
+
+The broader implication extends beyond CS to the development of critical thinking and analytical reasoning capabilities.
+The limitations identified in sophisticated AI systems underscore the value of human reasoning development across disciplines.
+As AI tools continue to evolve, the emphasis on metacognitive skills, collaborative reasoning, and systematic problem-solving approaches suggested by Shojaee et al. provides a robust foundation for students regardless of technological advancement.
+Rather than competing with current AI capabilities, effective CS education can prepare students to guide, verify, and complement these powerful but currently limited tools.
+The illusion of AI reasoning, as revealed through systematic evaluation, ultimately strengthens the case for rigorous CS education focused on developing the reasoning capabilities that current technology cannot replicate or replace.
+
+\medskip
+
+\printbibliography
+
+\end{document}
