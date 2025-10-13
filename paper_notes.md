@@ -60,28 +60,36 @@
 - Check Zip file for copyright file.
 - Copyright file missing.
 - Files moved to git repo.
+- Draft built, fixed issues with mix of bibtex and biblatex stuff.
+- Draft exceeds page limit, e-mail sent to author.
 
 ## 133 
 - Files downloaded.
 - Files moved to git repo.
+- Draft built, no issues with document
 
 ## 137 
 - Files downloaded.
 - Files moved to git repo
+- Draft built, no issues with document.
 
 ## 141 
 - Files downloaded.
 - Did not use approved template.
 - Files move to git repo
+- No source files in submission.  Author contacted.
 
 ## 142 
 - Files downloaded.
 - Files moved to git repo.
+- Draft built, no issues with document
 
 ## 148 
 - Files downloaded.
 - Files moved to git repo.
 - No copyright file found.
+- Build files integrated.
+- Draft not currently building (12Oct2025)
 
 # 154 
 - Files downloaded.
