@@ -1,0 +1,413 @@
+\documentclass{article}
+
+\input{preamble}
+\addbibresource{pounds-ccsc25ref.bib}
+
+\title{A Case Study: Using a Conversational LLM to Build a High Performance Physics Engine for Gas Diffusion}
+\author{Andrew J. Pounds\\
+Departments of Chemistry and Computer Science\\
+Mercer University, Macon, GA, 31207\\
+\email{pounds\_aj@mercer.edu}
+}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+
+Herein is described an initial set of tests to utilize a generative artificial intelligence
+    tool to build high performance code to simulate the physical process of gas diffusion.
+    This was done to see how a large language model (LLM) would perform in producing code to 
+    accurately describe the diffusion process, and also see how it would respond to requests
+    to optimize the code.  Optimizations were attempted for single-threaded code, shared memory symmetric
+    multiprocessing code using {\em OpenMP},
+    and for GPUs using {\em OpenACC}.   Superfluous data was also provided to the LLM to see
+    the effects on the code generation process. Explicit prompts are shown,
+    the characteristics of the generated code are described, and benchmarks are tabulated.   The tests used to verify the correctness of
+    the results are also described.
+
+
+\end{abstract}
+
+
+\section{Introduction} 
+The last few years have seen the use of
+artificial intelligence (AI) greatly expand across every area of
+human endeavor.\cite{RASHID2024100277}  One area where this is particularly the case is
+in software development.\cite{MANORAT2025100403}  The tools for AI software development
+have advanced to the point that some institutions have chosen
+to limit AI use or even return to handwritten code assignments.\cite{banit}
+An alternative approach is to embrace AI and yoke its strengths
+in the development process.  This strategy can be particularly beneficial
+when developing portions of code that rely on
+discipline specific content knowledge, assumptions, and coding strategies
+that are unknown to the programmer.
+
+One of the common tasks in developing realistic 3D computer games is the
+development of the physics engine. The physics engines are generally numerically
+intensive section of code built on principles unknown to the programmer and that require
+significant optimization to limit the effects of the engine on game play.
+While Large Language Model generative AI (LLMs) are somewhat effective at optimizing high performance computing (HPC)
+code \cite{Misic2024} others have found the results lacking to the point
+that new LLMs needed to be developed for this specific purpose.\cite{ding2023hpc}.
+Similarly, LLM systems have been 
+applied to the code-building process of physics engines \cite{Ali-Dib_2024}, and some outstanding
+libraries and tools can handle these sorts of tasks.\cite{kaup2024reviewphysicsenginesreinforcement}
+Because the physics engines need to be both accurate and fast, 
+and since not all games are necessarily written using the same languages, libraries, or tools, 
+there are proposed methods that ``bridge the gap''\cite{martins2025llm}.  However,
+as is often the case, the person building the physics engine often finds themselves 
+in the position of writing some or all the code {\em a priori}.  If the programmer does not understand
+the underlying physics and math, then this can be a daunting task, and precisely
+Where AI may be of some help. 
+This, however, can also become an issue because the AI engine may
+solve the problem in a way that is optimal, but does not result in
+a physically correct solution.   As has been noted by others, the
+workflow of AI-based coding for physics involves not only prompting and coding,
+but also extensive testing and verification.\cite{Jiao2024}
+
+While instructors are generally being encouraged to adopt generative AI
+in their courses, there are still concerns about how it could or should be
+implemented.  This paper provides a concrete example, using the physical process
+of gas diffusion, to show how current
+freely available generative AI tools and compilers can be used, through
+trial and error, to build
+HPC code that gives accurate results using modern, commonly available hardware.
+As such, we demonstrate a desired workflow to use LLMs to develop physically
+correct physics engines for computer games in a general manner.
+
+\section{Environment}
+
+The Google {\em Gemini} (ver. 2.5)\cite{GoogleAI2025} LLM conversational engine was used to produce all of the AI-generated code in this paper.   For the sake of comparison with existing code,
+the programs were generated in modern Fortran and then slightly
+modified to ensure that the same type of problem was being solved across
+all the programs
+for benchmarking purposes.    All code was compiled with the freely
+available Nvidia HPC SDK (ver. 25.3) using -O2 optimization and run on a 3.6 GHz Intel
+i7-7700 CPU with 48 GB of DDR 4 memory.  Any GPU-accelerated
+code was run on a Nvidia
+RTX 4060 Ti graphics card with 8 GB of memory using driver version 575.51.03 with
+CUDA version 12.9.
+
+
+\section{Methods}
+
+Fick's first law of diffusion states that particles move from regions of higher concentration 
+to those of lower concentration.  The change in the concentration between the regions
+of space 
+occurs according to
+Fick's second law that is shown in Eqn. \ref{grad}
+\begin{equation}
+\frac{dC}{dt} = D \left( \frac{\partial^2C}{\partial x^2} +  
+\frac{\partial^2 C}{\partial y^2} +
+ \frac{\partial^2C}{\partial z^2} \right)   
+\label{grad}
+\end{equation}
+where $C$ is the concentration of the diffusing species and
+$D$ is the coefficient of diffusion.  In this paper it is assumed
+that $D$ is isotropic across the solution space.
+A common way to solve the diffusion problem is to take a finite element
+approach and break the space up into several equal volume cubes \cite{BATCHELORMCAULEY2020114607}
+and then propagate the concentration of the species as a function of time via Eqn. \ref{grad}.
+
+In all cases, {\em Gemini} was asked to construct code that solved the
+problem for a room that was 125 cubic meters in volume (5 meters
+per side).  {\em Gemini} initially proposed a finite element approach using 1 cubic meter volume
+elements that would run for a specified amount of simulated time (1 hour).  
+To better simulate HPC codes, the memory requirements and run times were increased
+by reducing the volume elements to 0.125 L.  This resulted in
+one million finite volume elements using 64-bit precision.
+
+To test the ability of the code to produce physically realistic results, the code 
+was modified to run until the room was completely equilibrated.  At this equilibration
+ point, the concentration
+values of all the volume elements must be within 1\% of one another.  By simply comparing a selection
+of volume elements from the final equilibrated room to those of our stock diffusion code, it was
+easy to verify the correctness of the results.
+{\em Mathematica}\cite{Mathematica} was 
+also used to solve Eqn. \ref{grad} with zero flux 
+allowed at the room boundaries.  A timeslice from these calculations  
+is show in Figure \ref{plot:math}.  Using {\em Mathematica} it was determined that the room should
+completely equilibrate in approximately 92 hours.
+
+To see what assumptions the conversation LLM would make, no statements were initially given to {\em Gemini}
+about room mass conservation, 
+flux across the boundary, or Neumann boundary conditions.
+
+Finally, a misleading assumption was given to {\em Gemini}; the average speed of the diffusing gas molecule was
+provided.  It is often thought that gas diffusion, and
+thus the coefficient of diffusion ($D$),
+depends on the speed of the gas molecules.  Diffusion is a temperature and pressure dependent  transport
+phenomenon that results from the 
+collisions of molecules with one another.\cite{tinoco}   The {\em relative velocity}, not {\em average velocity}, of the molecules is
+a function of the {\em mean free path}, ($\lambda$) which is a function of their {\em collision cross section} ($\sigma$).
+The collision cross section is related to the {\em size} and {\em shape} of the molecule -- so it is 
+correlated to the mass of the molecule, but also depends on other factors.   So while the average speed of a gas molecule 
+is related to the temperature and mass of the molecule, the diffusion coefficient is dependent on several other transport 
+properties.  
+None of this background or additional data was provided to {\em Gemini} to
+see what it would do with the superfluous gas speed information.
+
+\begin{figure}[h]
+\centering
+    \begin{subfigure}{0.45\textwidth}
+\includegraphics[width=\textwidth]{./diffusioncubemathematica.png}
+        \caption{{\em Mathematica} Timeslice}
+\label{plot:math}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+\includegraphics[width=\textwidth]{./finiteelementplot.png}
+        \caption{Finite Element Timeslice}
+\label{plot:fe}
+\end{subfigure}
+    \caption{3D plots showing the evolution of the diffusion process at an early, but not identical, timestep. In the
+    {\em Mathematica} plot the axes denote the room size of 5 cubic meters.  The plot on the left was
+    constructed with the data-flow program {\em OpenDX} using data produced from the finite element programs.  The axes denote the indices of the
+    finite elements in the room.  At t=0 the initial concentration was 1.0 in element [0,0,0]}  
+    \label{plot}
+\end{figure}
+
+
+\section{Results}
+
+Several prompts were conversationally provided to {\em Gemini}.  The results were generally a few pages describing
+what assumptions and techniques were going to be used for code generation followed by a working program, and instructions on
+how to compile and run the program.
+
+\subsection{General Observations}
+
+With respect to code generation the LLM avoided many of the array access issues common in these types of programs.  For example, all of the 
+concentration updates to the arrays involved nested loops.  In many textbook and online examples these updates are done
+using the same array. The updates produced by {\em Gemini} were done by reading from the array holding the current concentrations and writing the
+updated concentrations to another array and then, after the update is complete, the updated array is copied to the original array.  This is a common
+technique in HPC work because it allows for cache optimization, vectorization, and parallelization in the compiler; students often do 
+not think to do this because it requires more memory and supposedly superfluous code.
+
+All of the code generated by {\em Gemini} contained parameters so that the code would run for one hour of simulated time.  As such all of the code had to be
+modified so that it would run to meet the ``equilibration condition'' previously described.
+
+\subsection{Individual Prompts}
+What follows are the prompts provided to {\em Gemini} and a brief description of the textual responses
+and code produced.  The code was also run and the simulated time and run time tabulated.  
+
+\begin{trivlist} 
+
+\item 
+    \fbox {\begin{minipage}{\textwidth} {\bf First prompt:} Using modern Fortran, write code to use
+Fick's first and second laws to simulate gas diffusion in a room
+that is 5 meters long 5 meters high and five meters wide you may
+    assume that the average speed of the gas molecules is 250 meters/sec
+    \end{minipage}}
+
+    \begin{itemize}
+        \item {\em Gemini} first flagged the problem of using gas velocity in diffusion problems and proposed a value for
+            the diffusion coefficient that was reasonable based on literature values (5x10$^{-5}$ m$^2$/s)
+\item An initial value for the concentration in the room was needed.  {\em Gemini} proposed an initial value at one corner
+    of the room.
+\item There were no given boundary conditions, {\em Gemini} assumed that there was no-flux and that particles could not
+    pass through the wall
+\item A forward-Euler finite element element numerical method approach was adopted and the room 
+    discretized into a 3D grid and 
+            the process stepped through time.  For the sake of stability, {\em Gemini} set the step size so that
+            $\Delta t \leq \frac{\left(\Delta x\right)^2}{2D}$
+\item {\em Gemini} claimed it was using Neumann conditions to conserve mass. {\em The solution did not conserve mass.}
+\item Generated code used row-major order multidimensional array indexing (Fortran should be column major for performance)
+\item Simulated equilibration time of 97.7 hours, actual run time was 126 seconds
+    \end{itemize}
+
+\item 
+    \fbox {\begin{minipage}{\textwidth} {\bf Second prompt:} 
+        Repeat the previous task but switch to the Jacobi
+tiled algorithm to improve cache performance
+    \end{minipage}}
+
+    \begin{itemize}
+        \item {\em Gemini} applauded the idea of moving to a tiled Jacobi algorithm\cite{hager} to improve performance.
+        \item {\em Gemini} switched to the Backward-Euler approximation for implementation into the 
+            Jacobi loops.  It correctly constructed the three outer tiling loops and the inner
+            Jacobi loops.  
+        \item The generated code switched to column-major indexing for Fortran performance
+        \item {\em Gemini} proposed a tilesize of 8, but stated that this must be optimized through testing.
+            How tiling improves performance was also described.
+        \item {\em Gemini} warned that the value of the timestep might need to be hand-adjusted to give 
+            correct values for the simulation time
+        \item {\em Gemini} suggested switching to {\em OpenMP}\cite{chapman2007using} parallelism for greater performance
+        \item Mass was, to a reasonable approximation, conserved.
+        \item Simulated equilibration time was 291 hours, actual run time was 362 seconds 
+    \end{itemize}
+
+\item 
+    \fbox {\begin{minipage}{\textwidth} {\bf Third prompt:} 
+In the code you produced in the first prompt the room loses
+mass because the sum of all the finite elements at the end of the
+run did not equal the sum of all the finite elements at the beginning
+of the run. Can you generate a logical mask to create code that conserves mass?
+    \end{minipage}}
+
+    \begin{itemize}
+        \item Logical masks are oftentimes used in diffusion code to specify regions of 
+            space that are not accessible to the gas.
+
+        {\em Gemini} indicated that a more robust procedure was needed to account for the conservation
+            laws.  To enforce zero concentration gradient at the boundary a stencil based approach
+            was adopted so that the value of the concentration at the 
+            boundary was set equal to its nearest neighbor inside the boundary at the end of each calculation.
+            How this was implemented is shown in Listing \ref{cs1} and how these boundary conditions
+            were implemented in the update equations are show in
+            Listing \ref{cs2}.
+
+
+\lstset{basicstyle=\small}
+\begin{lstlisting}[float,language=fortran,frame=single,label=cs1,caption=Implementation of a region computation mask
+to handle barriers and impenetrable regions with a Mask equal to 1.  This code was replicated for the Y and Z dimensions.]
+! X-direction neighbors
+IF (i == 1 .OR. Mask(i-1,j,k) == 1) THEN
+    C_val_im1 = Concentration_old(i,j,k) 
+    ! No flux from left (domain boundary or mask)
+ELSE
+    C_val_im1 = Concentration_old(i-1,j,k)
+END IF
+
+IF (i == NX .OR. Mask(i+1,j,k) == 1) THEN
+    C_val_ip1 = Concentration_old(i,j,k) 
+    ! No flux from right (domain boundary or mask)
+ELSE
+    C_val_ip1 = Concentration_old(i+1,j,k)
+END IF
+\end{lstlisting}
+
+\lstset{basicstyle=\small}
+\begin{lstlisting}[float,language=fortran,frame=single,label=cs2,caption=Demonstrating how the
+computational mask was used in the stencil calculation.]
+! Apply finite difference stencil for diffusion to 
+! this OPEN cell
+Concentration_new(i, j, k) = Concentration_old(i, j, k) + &
+    D * DT * ( &
+    (C_val_ip1 - 2.0_8*Concentration_old(i, j, k) 
+             + C_val_im1) / DX**2 + &
+    (C_val_jp1 - 2.0_8*Concentration_old(i, j, k) 
+             + C_val_jm1) / DY**2 + &
+    (C_val_kp1 - 2.0_8*Concentration_old(i, j, k) 
+             + C_val_km1) / DZ**2 )
+\end{lstlisting}
+
+
+        \item The generated code switched back to row-major array indexing 
+        \item Mass was conserved.
+        \item Simulated equilibration time was 101 hours, actual run time was 150 seconds 
+    \end{itemize}
+
+\item 
+    \fbox {\begin{minipage}{\textwidth} {\bf Fourth prompt:} 
+        Repeat what you did in the previous prompt but now switch to OpenMP parallelism
+        to enhance the performance.
+    \end{minipage}}
+
+    \begin{itemize}
+        \item {\em Gemini} correctly placed the {\tt !\$OMP PARALLEL DO COLLAPSE(3)} constructs
+            at the proper locations and also added the needed directives to indicate
+            which variables were shared and private to each thread.
+        \item Inside the code {\em Gemini} include comments describing all of the OpenMP directives
+        \item The generated code returned to proper column-major array indexing for Fortran 
+        \item Mass was conserved.
+        \item Simulated equilibration time was 101 hours, actual run time was 168 seconds using 
+            the optimal recommended number of threads (4) for the i7 processor to minimize cache conflicts
+    \end{itemize}
+
+\item 
+    \fbox {\begin{minipage}{\textwidth} {\bf Fifth prompt:} 
+        Can you now replace the OpenMP code with OpenACC code so those pieces can be offloaded to a GPU
+        to enhance the performance?
+    \end{minipage}}
+
+    \begin{itemize}
+        \item {\em Gemini} used the {\tt !\$ACC DATA COPY} construct from {\em OpenACC}\cite{openacc} to move the arrays to the GPU and then
+            did all of the equilibration processing on the GPU
+    \item Similarly to the generated {\em OpenMP} code, {\em Gemini} collapsed the loops, {\tt !\$ACC PARALLEL LOOP COLLAPSE(3) }
+            and included to instructions to tell the GPU that the needed arrays were already in GPU memory
+        \item The {\tt COLLAPSE(3)} also instructs the GPU that it can optimally rearrange the array indexing for its 
+            memory architecture
+    \item Inside the code {\em Gemini} included comments describing all of the {\em OpenACC} directives
+        \item Mass was conserved.
+        \item Simulated equilibration time was 101 hours, actual run time was 15 seconds 
+    \end{itemize}
+
+\end{trivlist}
+
+\subsection{Evaluation}
+
+The correctness of the computed results was based on two things: the ability of the code to conserve
+mass and to produce a realistic simulated time.  The value of the simulated time computed with {\em Mathematica}
+( approximately 92 hours) was taken as the correct time and a lower limit.
+Referring to Table \ref{summary}, only the last three prompts 
+reasonably met these
+criteria.  It should be noted that {\em Gemini} did warn that the simulated times produced from the code
+of prompt 2 would probably be incorrect and the tile sizes needed to be optimized to improve the
+execution times.
+
+\begin{table}[h]
+    \caption{Summary of Results for Code Produced by {\em Gemini}}
+    \label{summary}
+    \centering
+\begin{tabular}{|cccccc|}\hline
+    Prompt & Finite         & Parallel    & Mass           & Simulated & Run  \\ 
+           & Element        & Method      &    Conserved   &  Time    & Time  \\ 
+           & Method         &             &                &  (Hours) & (Seconds) \\ \hline
+      1    & Forward Euler  &   N/A       & N              &  98            &  126      \\
+      2    & Tiled Jacobi   &   N/A       & Y              &  291           &  362      \\
+      3    & Stencil        &   N/A       & Y              &  101           &  150     \\
+      4    & Stencil        &   {\em OpenMP} & Y           &  101           &  168      \\
+      5    & Stencil        &   {\em OpenACC} & Y          &  101           &  15        \\ \hline
+\end{tabular}
+\end{table}
+
+Considering the last three ``correct'' prompts, the benchmarking results show one of the weaknesses of
+LLM HPC code.  Prompt 3 produced a serial code.  Prompt 4 asked the LLM to implement {\em OpenMP} parallelism
+on four threads.  It was verified that the code was running on four threads concurrently; if there was sufficient work to do in the triply nested loops, then the run time should have
+dropped significantly
+compared to the serial time.   However, since this was not the case the overhead of setting up
+the parallel region during each update pass must have increased the overall runtime. The LLM had no
+way to detect this increase in runtime and proposed no methods to guard against it. In the {\em OpenACC} code the
+entire update process, including the calculation of the variable used to check if equilibration had been
+achieved, was moved onto the GPU.  This resulted in a ten-fold speedup over the single-threaded stencil code.
+
+
+\section{Discussion and Conclusions}
+
+One of the primary questions addressed in this paper centers on how well a conversation LLM
+can write accurate code for physical simulations.  We have clearly shown that, given minimal, or even incorrect input that the {\em Gemini} LLM can, with a few exceptions, do this.  As such, these AI systems should quickly find themselves
+as part of the arsenal of those building code for 3D simulations or computer games..
+
+As stated, the {\em Gemini} LLM generally did a good job of writing code to solve
+the problem at hand, but there were a few issues when it came to generating
+code that produced physically correct results.  Based on our tests, all of these could
+have been avoided with more specific prompting.
+Our tests using the LLM to generate HPC code are very tentative but do reveal
+a drawback.  In progressing from a serial code to a shared memory parallel code with {\em OpenMP}, one
+must carefully examine the problem at hand to determine if there is enough computational work
+to benefit from this modification.  Because {\em OpenMP} does incur some overhead to set
+up the loops in these calculations, one must often test extensively and decide limits for
+when to switch from single-threaded to multi-threaded execution.  Surprisingly the {\em Gemini} LLM
+recognized this issue when asked to build single-threaded code with tiles to optimize
+cache, but ignored it when
+building {\em OpenMP} solutions. In our opinion there is a lot of room for improvement in LLM generated
+{\em OpenMP} code.  In these experiments, the LLM did an outstanding job
+of adding the appropriate keywords for {\em OpenACC} GPU acceleration.  It was also verified while the
+code was running that the GPU was being used optimally.  The primary difference between the location of
+the parallelization commands in the {\em OpenMP} and {\em OpenACC} codes was that in the {\em OpenACC} case all of the arrays and control variables
+were moved to the GPU and the entire calculation took place on the GPU while in the case of {\em OpenMP}
+the parallelization constructs had to be issued for each timestep.  While initial testing has shown that
+other LLMs give similar solutions to {\em Gemini} for the problems described in this paper, space limitations 
+prevent even a cursory discussion of those results here.
+
+The disparities in runtimes between different coding strategies are issues that have to be dealt
+with routinely in high performance computing. The experiments in this research show that the LLM
+can easily generate working code using any number of HPC techniques: tiling, stencils, shared memory
+parallelization, GPU acceleration, etc.   Thus for those teaching HPC courses the LLM could produce
+a multitude of examples to demonstrate how to build HPC programs and thus provide starting points upon which students
+could improve. With the wide availability of conversational LLMs it is hoped that the examples provided herein
+entice others to incorporate AI into their HPC workflows and encourage their students to do the same.
+
+\printbibliography
+\end{document}
