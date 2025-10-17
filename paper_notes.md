@@ -95,6 +95,8 @@
 - Files downloaded.
 - Not exactly sure what this person did but it definitely ain't our
   templates.
+- Adjusted back to work with our template, integrate build system
+- Document built but page length exceeded.
   
 ## 157 
 - Check for withdraw
@@ -106,10 +108,13 @@
 ## 165 
 - Files downloaded.
 - Files moved to git repo
+- Major rework required, will have to port to LaTeX
 
 ## 166
 - Files downloaded. 
 - Files moved to git repo
+- Significant editing failures in final version submission.
+- E-mail sent to author
 
 ## 167
 - Files downloaded.
@@ -121,17 +126,26 @@
 ## 104 
 - Files downloaded.
 - Files moved to git repo
+- ACM2y only provided PDF
 
 ## 105 
 - Files downloaded.
 - Files moved to git repo
+- Draft built, no issues
+
+## 110
+- Files downloaded.
+- Files moved to git repo
+- Bib file missing from submission.
 
 ## 138 
 - Files downloaded.
 - Check zip for copyright file.
 - Files moved to git repo
+- Bib file missing from submission
 
 ## 153 
 - Files downloaded.
 - Files moved to git repo
+- Draft built after pulling xeCYK from preamble.
 
