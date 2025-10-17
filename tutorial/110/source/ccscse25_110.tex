@@ -1,0 +1,45 @@
+\documentclass{article}
+
+\input{preamble}
+
+\title{Unlocking Rust: An Introduction for Educators\footnote{\protect\input{copyleft}}
+\\
+\vspace{0.2in}
+\large{
+Conference Workshop
+}}
+
+
+\author{
+William Kreahling\\
+Department of Mathematics and Computer Science\\
+Western Carolina University, Cullowhee, NC 28723\\
+\email{wkreahling@wcu.edu}\\
+}
+
+
+\begin{document}
+
+\maketitle
+
+Rust is a relatively new programming language, the first stable release occurring in May of 2015\cite{RustRelease}.
+Since then, it has been experiencing rapid growth and increasing adoption across the
+industry\cite{RustFuture}\cite{RustAdoption}.  In 2019 Microsoft revealed that 70\% of the vulnerabilities addressed
+through security patches in its products each year were related to memory safety issues\cite{vulnerable}.  Given
+Rust’s strong emphasis on memory safety without compromising performance, it’s easy to understand its growing appeal
+in the field of computer science.
+
+This workshop offers an introduction to programming with the Rust Programming Language and the cargo package manager.
+Participants will be introduced to Rust's syntax, and its core focus on memory safety.  Key topics include the
+structure and syntax of Rust programs, the fundamentals of memory safety\textemdash such as ownership, borrowing with
+references, and lifetimes\textemdash as well as Rust’s approach to generics and inheritance, through the use of traits.
+
+The session will begin with a concise overview of Cargo, the Rust package manager, and the explores core concepts in
+Rust. This will be followed by hands-on activities. The workshop will also incorporate insights and best practices
+drawn from classroom experience over the last five years.
+
+\bibliographystyle{plain}
+\small{
+\bibliography{rust}
+}
+\end{document}
