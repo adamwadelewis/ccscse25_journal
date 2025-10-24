@@ -149,3 +149,5 @@
 - Files moved to git repo
 - Draft built after pulling xeCYK from preamble.
 
+## 167
+- Files corrected, now clean.
