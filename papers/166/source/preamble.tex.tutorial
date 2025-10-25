@@ -58,10 +58,3 @@
 
 % remove date
 \date{}
-
-\usepackage{titlesec}
-\titleformat*{\section}{\large\bfseries}
-\titleformat*{\subsection}{\normalsize\bfseries}
-\titleformat*{\subsubsection}{\normalsize\bfseries}
-
-\usepackage{biblatex}
