@@ -181,7 +181,6 @@ Together, these tools facilitate an engaging learning experience and
 provide students with skills that are directly applicable to careers in
 NLP, AI, and data science
 
-
 \subsection{Visualization}
 
 To support deeper conceptual understanding, the framework incorporates
@@ -349,7 +348,8 @@ applying models to real problems.
 \end{itemize}
 
 \begin{table}[h]
-\centering
+  \centering
+  \tiny
 \begin{tabular}{|l|c|c|c|c|}
 \hline
 \textbf{Model} & \textbf{Precision (\%)} & \textbf{Recall (\%)} & \textbf{F1-Score (\%)} & \textbf{Accuracy (\%)} \\
@@ -443,21 +443,22 @@ mDeBERTa & 64.1 & 64.0 & 64.8 & 64.9 \\
 \end{itemize}
   
 \begin{table}[h]
-\centering
+  \centering
+  \tiny
 %\renewcommand{\arraystretch}{3.4}
 \begin{tabular}{|l|c|c|c|}
 \hline
 \textbf{Method Type} & \textbf{Methods} &  \textbf{Spearman Correlation } \\
 \hline
-Traditional &  \parbox[t]{5.5cm}{
+Traditional &  \parbox[t]{4cm}{
 1. Needleman–Wunsch \cite{needleman1970general} \\
 2. HH-align \cite{steinegger2019hh}
-}   &  \parbox[t]{5.5cm}{
+}   &  \parbox[t]{4cm}{
 0.61 \\
 0.82 
 } \\
 \hline
-Embedding-based &  \parbox[t]{5.5cm}{
+Embedding-based &  \parbox[t]{4cm}{
 3. ProtTucker \cite{heinzinger2022contrastive} \\
 4. pLM-BLAST \cite{kaminski2023plm} \\
 5. TM-Vec \cite{hamamsy2024protein}{} \\
@@ -467,7 +468,7 @@ Embedding-based &  \parbox[t]{5.5cm}{
 7(c). Our work w/o Stage 2\\
 7(d). Our work w/o Stage 1\\
 
-}    & \parbox[t]{5.5cm}{
+}    & \parbox[t]{4cm}{
 -0.46 \\
 0.58 \\
 0.81\\
