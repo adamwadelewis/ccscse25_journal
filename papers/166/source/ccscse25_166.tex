@@ -17,30 +17,17 @@
 
 \author{
 Nilanjana RayChawdhary\affmark[1],
-Gerry Dozier\affmark[1], %Author A\affmark[1], 
+Gerry Dozier\affmark[1], 
  Cheryl D. Seals\affmark[1] \\
-%Author B\affmark[2]\\
 Sutanu Bhattacharya\affmark[2]\\
-%Amit Das\affmark[3]\\
 \affmark[1]Computer Sciences \& Software Engineering\\
 Auburn University\\
 Auburn, AL 36830\\
-\email{nzr0044@auburn.edu}\\
-\email{doziegv@auburn.edu}\\
-\email{sealscd@auburn.edu}\\
+\email{\{nzr0044, doziegv, sealscd\}@auburn.edu}\\
 \affmark[2]Computer Science and Computer Information Systems\\
 Auburn University at Montgomery\\
 Montgomery, AL 36117\\
 \email{sbhatta4@aum.edu}\\
-%\affmark[2]Computer Science Department\\
-%Another University\\
-%Our Town, TX 00000\\
-%\email{\{jmeinke,author\}@univ.edu}
-%\affmark[2]Computer and 
-%Information System\\
-% University of North Alabama\\
-%Florence, AL 35632\\
-%\email{adas@una.edu}\\
 }
 
 
@@ -49,224 +36,430 @@ Montgomery, AL 36117\\
 
 \begin{abstract}
 
-This paper presents a practical and student-centered approach for teaching Natural Language Processing (NLP) and Machine Learning (ML) to undergraduate students using real-world case studies and accessible computing tools. Designed for introductory learners, the curriculum integrates hands-on exercises with Google Colab, Jupyter Notebooks, TensorFlow, and NumPy to reduce infrastructure barriers and promote exploratory learning. By embedding the instruction within case-based problems such as sentiment analysis, named entity recognition, and news classification, the framework enables students to bridge theory with practice and develop essential problem-solving skills. This paper elaborates the structure, tools, methodology, and outcomes of implementing this approach, with an emphasis on self-directed learning, real-time feedback, and interdisciplinary relevance. New case studies on embedding-based protein sequence alignment and implicit offensive language detection further expand the interdisciplinary scope of the curriculum. These modules enable students to explore applications of NLP in computational biology and socially sensitive contexts, fostering both technical depth and ethical awareness.
+  This paper presents a practical and student-centered approach for
+  teaching Natural Language Processing (NLP) and Machine Learning (ML)
+  to undergraduate students using real-world case studies and accessible
+  computing tools. Designed for introductory learners, the curriculum
+  integrates hands-on exercises with Google Colab, Jupyter Notebooks,
+  TensorFlow, and NumPy to reduce infrastructure barriers and promote
+  exploratory learning. By embedding the instruction within case-based
+  problems such as sentiment analysis, named entity recognition, and
+  news classification, the framework enables students to bridge theory
+  with practice and develop essential problem-solving skills. This paper
+  elaborates the structure, tools, methodology, and outcomes of
+  implementing this approach, with an emphasis on self-directed
+  learning, real-time feedback, and interdisciplinary relevance. New
+  case studies on embedding-based protein sequence alignment and
+  implicit offensive language detection further expand the
+  interdisciplinary scope of the curriculum. These modules enable
+  students to explore applications of NLP in computational biology and
+  socially sensitive contexts, fostering both technical depth and
+  ethical awareness.
 \end{abstract}
 
 
 
 \section{Introduction}
-Teaching Natural Language Processing (NLP) and Machine Learning (ML) to undergraduate students comes with distinct challenges. Traditional lectures often fall short in offering practical, real-world applications, making it difficult for students, especially those without a background in statistics or linguistics to grasp the concepts. To overcome these hurdles, we propose a case-based instructional approach that utilizes user-friendly platforms and tools. This method helps simplify complex NLP techniques and engages students by connecting learning with real-world scenarios. The framework now includes advanced case studies on embedding-based protein sequence alignment and implicit offensive language classification to demonstrate cross-domain applications of NLP.
+Teaching Natural Language Processing (NLP) and Machine Learning (ML) to
+undergraduate students comes with distinct challenges. Traditional
+lectures often fall short in offering practical, real-world
+applications, making it difficult for students, especially those without
+a background in statistics or linguistics to grasp the concepts. To
+overcome these hurdles, we propose a case-based instructional approach
+that utilizes user-friendly platforms and tools. This method helps
+simplify complex NLP techniques and engages students by connecting
+learning with real-world scenarios. The framework now includes advanced
+case studies on embedding-based protein sequence alignment and implicit
+offensive language classification to demonstrate cross-domain
+applications of NLP.
 
-Our teaching model incorporates Google Colab and Jupyter Notebooks \cite{muller2016introduction}, which allow students to write and execute code without requiring local software installation. Open-source libraries such as TensorFlow and NumPy support the creation and evaluation of basic machine learning models in a way that is accessible to beginners. Each subject is taught through a structured case study that blends theory with practical coding exercises, guiding students through every stage from identifying the problem to working with data, building models, and analyzing results.
+Our teaching model incorporates Google Colab and Jupyter Notebooks
+\cite{muller2016introduction}, which allow students to write and execute
+code without requiring local software installation. Open-source
+libraries such as TensorFlow and NumPy support the creation and
+evaluation of basic machine learning models in a way that is accessible
+to beginners. Each subject is taught through a structured case study
+that blends theory with practical coding exercises, guiding students
+through every stage from identifying the problem to working with data,
+building models, and analyzing results.
 
 \section{Related Work}
-Recent studies highlight the effectiveness of interactive tools like Jupyter notebooks and Python libraries (e.g., NLTK, SpaCy) in enhancing student engagement and understanding of NLP concepts \cite{muller2016introduction}. Transfer learning techniques, particularly using models like XLM-R, have been successful in performing sentiment analysis for low-resource languages by addressing data scarcity. Case-based approaches further support interdisciplinary learning, connecting NLP with fields like social sciences and linguistics \cite{10585867}.
- Building on this, our framework integrates domain-specific sentiment analysis and a real-time feedback system within Jupyter notebooks, offering hands-on visualization and adaptive support \cite{alm2021visualizing}. Ethical concerns, such as bias in sentiment models and embeddings \cite{bender2020climbing} \cite{sun-etal-2019-mitigating}, are addressed through critical reflection exercises focusing on African languages like Hausa and Igbo \cite{10292494}.  Our framework extends prior efforts by implementing NLP techniques in bioinformatics, specifically through embedding-based protein sequence alignment, and also addresses social NLP tasks such as implicit offensive language detection. Our approach encourages responsible AI practices while enhancing technical and analytical skills. Personalized learning is further supported through real-time feedback mechanisms that guide students in correcting errors and understanding model behavior \cite{zhai2021review}, fostering a deeper and more flexible learning experience.
+Recent studies highlight the effectiveness of interactive tools like
+Jupyter notebooks and Python libraries (e.g., NLTK, SpaCy) in enhancing
+student engagement and understanding of NLP concepts
+\cite{muller2016introduction}. Transfer learning techniques,
+particularly using models like XLM-R, have been successful in performing
+sentiment analysis for low-resource languages by addressing data
+scarcity. Case-based approaches further support interdisciplinary
+learning, connecting NLP with fields like social sciences and
+linguistics \cite{10585867}.  Building on this, our framework integrates
+domain-specific sentiment analysis and a real-time feedback system
+within Jupyter notebooks, offering hands-on visualization and adaptive
+support \cite{alm2021visualizing}. Ethical concerns, such as bias in
+sentiment models and embeddings \cite{bender2020climbing}
+\cite{sun-etal-2019-mitigating}, are addressed through critical
+reflection exercises focusing on African languages like Hausa and Igbo
+\cite{10292494}.  Our framework extends prior efforts by implementing
+NLP techniques in bioinformatics, specifically through embedding-based
+protein sequence alignment, and also addresses social NLP tasks such as
+implicit offensive language detection. Our approach encourages
+responsible AI practices while enhancing technical and analytical
+skills. Personalized learning is further supported through real-time
+feedback mechanisms that guide students in correcting errors and
+understanding model behavior \cite{zhai2021review}, fostering a deeper
+and more flexible learning experience.
 
 \section{Methodology}
-This research introduces a multi-phase framework that integrates theory, hands-on tools, and ethical awareness to enhance student learning and engagement in NLP and ML.
+This research introduces a multi-phase framework that integrates theory,
+hands-on tools, and ethical awareness to enhance student learning and
+engagement in NLP and ML.
 
 \subsection{Research Questions}
 
 \noindent
 \textbf{A.} How can case-based, hands-on instruction enhance student engagement and conceptual understanding in NLP and ML courses?\\[0.5em]
 \textbf{B.} Which interactive tools and real-world datasets are most effective for demonstrating NLP’s interdisciplinary relevance, especially in tasks like sentiment analysis for low-resource languages?\\[0.5em]
-\textbf{C.} In what ways can ethical considerations, such as bias in language models, be incorporated into practical exercises to encourage responsible AI practices and critical thinking?
+\textbf{C.} In what ways can ethical considerations, such as bias in
+language models, be incorporated into practical exercises to encourage
+responsible AI practices and critical thinking?
 \section{Framework Design for NLP Education}
 
 \subsection{Objective}
 
-This research develops a student-centered framework for teaching NLP and ML through real-world case studies and interactive tools. Using Google Colab, Jupyter Notebooks, TensorFlow, and NumPy, it emphasizes low-resource languages, ethical AI, and interdisciplinary applications. Real-time feedback and hands-on exercises foster technical skills and critical thinking, preparing students for responsible, applied NLP and ML.
+This research develops a student-centered framework for teaching NLP and
+ML through real-world case studies and interactive tools. Using Google
+Colab, Jupyter Notebooks, TensorFlow, and NumPy, it emphasizes
+low-resource languages, ethical AI, and interdisciplinary
+applications. Real-time feedback and hands-on exercises foster technical
+skills and critical thinking, preparing students for responsible,
+applied NLP and ML.
 \subsection{Tools and Environment}
 
-To ensure that Natural Language Processing (NLP) and Machine Learning (ML) are approachable for a diverse group of undergraduate learners, we utilize a collection of tools that emphasize ease of use, live execution, and interactive content. These platforms are chosen specifically to lower entry barriers while simultaneously introducing students to technologies commonly used in the field \cite{raychawdhary2025asee}.
+To ensure that Natural Language Processing (NLP) and Machine Learning
+(ML) are approachable for a diverse group of undergraduate learners, we
+utilize a collection of tools that emphasize ease of use, live
+execution, and interactive content. These platforms are chosen
+specifically to lower entry barriers while simultaneously introducing
+students to technologies commonly used in the field
+\cite{raychawdhary2025asee}.
 
 \begin{itemize}
-    \item \textbf{Google Colab}: A free, cloud-based platform that supports GPU usage and allows students to write and run code without installing any software. It is especially useful for beginners and group-based projects \cite{raychawdhary2025asee}.
+\item \textbf{Google Colab}: A free, cloud-based platform that supports
+  GPU usage and allows students to write and run code without installing
+  any software. It is especially useful for beginners and group-based
+  projects \cite{raychawdhary2025asee}.
     
-    \item \textbf{Jupyter Notebooks}: A flexible environment for writing and executing code alongside explanatory text. It enables students to learn through structured, interactive examples that blend programming with written instruction \cite{raychawdhary2025asee}.
+\item \textbf{Jupyter Notebooks}: A flexible environment for writing and
+  executing code alongside explanatory text. It enables students to
+  learn through structured, interactive examples that blend programming
+  with written instruction \cite{raychawdhary2025asee}.
     
-    \item \textbf{TensorFlow}: A widely-used, open-source library that enables students to create and train basic neural networks. Its transparent and customizable structure helps learners understand the mechanics behind model development.
+\item \textbf{TensorFlow}: A widely-used, open-source library that
+  enables students to create and train basic neural networks. Its
+  transparent and customizable structure helps learners understand the
+  mechanics behind model development.
     
-    \item \textbf{NumPy}: A core Python library for numerical computing. Provides foundational tools for handling vectors and matrices, key concepts in working with word embeddings and classification models .
+\item \textbf{NumPy}: A core Python library for numerical
+  computing. Provides foundational tools for handling vectors and
+  matrices, key concepts in working with word embeddings and
+  classification models .
     
-    \item \textbf{PyCharm (Optional)}: A feature-rich Integrated Development Environment (IDE) recommended for students who want to take on more complex projects. It supports debugging, version control, and advanced project organization.
+\item \textbf{PyCharm (Optional)}: A feature-rich Integrated Development
+  Environment (IDE) recommended for students who want to take on more
+  complex projects. It supports debugging, version control, and advanced
+  project organization.
 \end{itemize}
 
-Together, these tools facilitate an engaging learning experience and provide students with skills that are directly applicable to careers in NLP, AI, and data science.
-
+Together, these tools facilitate an engaging learning experience and
+provide students with skills that are directly applicable to careers in
+NLP, AI, and data science.
 
 \subsection{Visualization}
 
-The framework deepens understanding by enabling students to visualize NLP and ML processes in Jupyter Notebooks through real-time feedback, confusion matrices, and embedding plots, fostering reflection and improving analytical engagement.
+The framework deepens understanding by enabling students to visualize
+NLP and ML processes in Jupyter Notebooks through real-time feedback,
+confusion matrices, and embedding plots, fostering reflection and
+improving analytical engagement.
 
 \section{Case Studies}
 
-Our curriculum showcases the broad applications of NLP through varied interdisciplinary case studies. Each instructional case study is designed to guide students from understanding real-world problems to implementing technical solutions using NLP and ML techniques. The structure of each case is organized as follows:
+Our curriculum showcases the broad applications of NLP through varied
+interdisciplinary case studies. Each instructional case study is
+designed to guide students from understanding real-world problems to
+implementing technical solutions using NLP and ML techniques. The
+structure of each case is organized as follows:
 
 \begin{itemize}
-    \item \textbf{Real-World Scenario}: The case study begins with a practical problem or situation that illustrates the relevance of the task.
+\item \textbf{Real-World Scenario}: The case study begins with a
+  practical problem or situation that illustrates the relevance of the
+  task.
     
-    \item \textbf{Technique Overview}: Core methods and algorithms are introduced with clear explanations, often accompanied by visual aids and markdown summaries.
+\item \textbf{Technique Overview}: Core methods and algorithms are
+  introduced with clear explanations, often accompanied by visual aids
+  and markdown summaries.
     
-    \item \textbf{Guided Implementation}: Students follow annotated code snippets that demonstrate the step-by-step construction of the solution.
+\item \textbf{Guided Implementation}: Students follow annotated code
+  snippets that demonstrate the step-by-step construction of the
+  solution.
     
-    \item \textbf{Interactive Exercises}: Short in-notebook challenges encourage students to apply concepts independently and receive formative feedback.
+\item \textbf{Interactive Exercises}: Short in-notebook challenges
+  encourage students to apply concepts independently and receive
+  formative feedback.
     
-    \item \textbf{Optional Extensions}: Additional tasks are provided to allow students to modify, scale, or explore the problem further based on their interest and ability level.
+\item \textbf{Optional Extensions}: Additional tasks are provided to
+  allow students to modify, scale, or explore the problem further based
+  on their interest and ability level.
 
-\item \textbf{Enhanced Module}:The framework helps students visualize NLP and ML in Jupyter Notebooks with real-time feedback, boosting understanding and engagement.
+\item \textbf{Enhanced Module}:The framework helps students visualize
+  NLP and ML in Jupyter Notebooks with real-time feedback, boosting
+  understanding and engagement.
 
 \end{itemize}
 
-This step-by-step approach helps students understand the ideas clearly and also gives them practical experience in building, testing, and applying models to real problems.
+This step-by-step approach helps students understand the ideas clearly
+and also gives them practical experience in building, testing, and
+applying models to real problems.
 \subsection{Case Study 1: Benchmarking Sentiment Models in Low-Resource  African Languages}
 
 \begin{itemize}
-    \item \textbf{Goal:} Classify user-generated text (e.g., tweets, comments) into sentiment categories such as \textit{positive}, \textit{negative}, or \textit{neutral} in African languages like Yoruba, Hausa, and Igbo.
+\item \textbf{Goal:} Classify user-generated text (e.g., tweets,
+  comments) into sentiment categories such as \textit{positive},
+  \textit{negative}, or \textit{neutral} in African languages like
+  Yoruba, Hausa, and Igbo.
 
-    \item \textbf{Dataset:} SemEval 2023 Task 12  (Multilingual Sentiment classification),  includes annotated tweets across three sentiment categories, designed to support research in sentiment analysis for low-resource languages \cite{10500147}, \cite {10585867}.
+\item \textbf{Dataset:} SemEval 2023 Task 12 (Multilingual Sentiment
+  classification), includes annotated tweets across three sentiment
+  categories, designed to support research in sentiment analysis for
+  low-resource languages \cite{10500147}, \cite {10585867}.
 
-    \item \textbf{Implementation:}
+\item \textbf{Implementation:}
 
+  \textbf{Baseline Model Comparison:} To begin, students apply a
+  pre-trained sentiment analysis model to low-resource language datasets
+  in order to establish a baseline. This initial evaluation highlights
+  the model’s limitations when used without additional fine-tuning,
+  providing a clear starting point. Through this step, students gain
+  insight into the challenges of working with limited data and
+  understand the importance of performance benchmarks.
 
-\textbf{Baseline Model Comparison:}  
-To begin, students apply a pre-trained sentiment analysis model to low-resource language datasets in order to establish a baseline. This initial evaluation highlights the model’s limitations when used without additional fine-tuning, providing a clear starting point. Through this step, students gain insight into the challenges of working with limited data and understand the importance of performance benchmarks.
+  \textbf{Fine-Tuning and Cross-Lingual Transfer:} Next, students
+  fine-tune a multilingual transformer-based model using task-specific
+  data from low-resource languages
+  \cite{hughes-etal-2023-bhattacharya}. This involves adapting the
+  pre-trained model to the specific classification task, improving its
+  ability to handle domain-specific inputs. Additionally, cross-lingual
+  transfer learning allows the model to benefit from knowledge gained
+  from high-resource languages. Comparing the fine-tuned results with
+  the baseline helps students clearly observe how fine-tuning and
+  transfer techniques enhance model performance in low-resource settings
+  \cite{10585867}.
 
-\textbf{Fine-Tuning and Cross-Lingual Transfer:}  
-Next, students fine-tune a multilingual transformer-based model using task-specific data from low-resource languages \cite{hughes-etal-2023-bhattacharya}. This involves adapting the pre-trained model to the specific classification task, improving its ability to handle domain-specific inputs. Additionally, cross-lingual transfer learning allows the model to benefit from knowledge gained from high-resource languages. Comparing the fine-tuned results with the baseline helps students clearly observe how fine-tuning and transfer techniques enhance model performance in low-resource settings \cite{10585867}.
-
-\textbf{Evaluation Metrics:}  
-To measure model effectiveness, students apply standard evaluation metrics including accuracy, precision, recall, and F1-score. These metrics offer a well-rounded view of the model’s strengths and weaknesses \cite{10500147}.
-
+  \textbf{Evaluation Metrics:} To measure model effectiveness, students
+  apply standard evaluation metrics including accuracy, precision,
+  recall, and F1-score. These metrics offer a well-rounded view of the
+  model’s strengths and weaknesses \cite{10500147}.
     
-    
-    \item \textbf{Case Study Results and Insights:} Critical insights into the efficacy of refined sentiment analysis models for low-resource African languages were obtained from the comparative assessment of four multilingual transformer models: AfroXLMR, XLM-R, AfriBERTa, and mDeBERTa.  Precision, recall, F1-score, and accuracy were the basic metrics used to evaluate each model's performance in classifying sentiment (positive, negative, and neutral) in user-generated texts, such as tweets.
+\item \textbf{Case Study Results and Insights:} Critical insights into
+  the efficacy of refined sentiment analysis models for low-resource
+  African languages were obtained from the comparative assessment of
+  four multilingual transformer models: AfroXLMR, XLM-R, AfriBERTa, and
+  mDeBERTa.  Precision, recall, F1-score, and accuracy were the basic
+  metrics used to evaluate each model's performance in classifying
+  sentiment (positive, negative, and neutral) in user-generated texts,
+  such as tweets.
 
- AfroXLMR continuously outperformed the other models under evaluation, attaining 72.5\% precision, 72.6\% recall, 72.8\% F1-score, and 73.2\% accuracy.  According to these findings, the model that was most successful in adjusting to the linguistic subtleties and syntactic patterns seen in the dataset was AfroXLMR, which was designed especially for African languages.  Its strong performance and appropriateness for sentiment analysis tasks requiring less resources are demonstrated by its high results on all criteria.XLM-R, a general-purpose multilingual model, performed comparably well, with 71.8\% precision, 71.6\% recall, 71.8\% F1-score, and 72.6\% accuracy. While slightly behind AfroXLMR, these outcomes affirm the utility of cross-lingual transfer learning, particularly when such models are fine-tuned on task-specific data.
+  AfroXLMR continuously outperformed the other models under evaluation,
+  attaining 72.5\% precision, 72.6\% recall, 72.8\% F1-score, and 73.2\%
+  accuracy.  According to these findings, the model that was most
+  successful in adjusting to the linguistic subtleties and syntactic
+  patterns seen in the dataset was AfroXLMR, which was designed
+  especially for African languages.  Its strong performance and
+  appropriateness for sentiment analysis tasks requiring less resources
+  are demonstrated by its high results on all criteria.XLM-R, a
+  general-purpose multilingual model, performed comparably well, with
+  71.8\% precision, 71.6\% recall, 71.8\% F1-score, and 72.6\%
+  accuracy. While slightly behind AfroXLMR, these outcomes affirm the
+  utility of cross-lingual transfer learning, particularly when such
+  models are fine-tuned on task-specific data.
 
-In contrast, AfriBERTa, though designed for African languages, showed a modest drop in performance, securing 67.4\% precision, 67.5\% recall, 67.8\% F1-score, and 68.0\% accuracy. The results based on Table 1 suggest that model architecture and pretraining corpora critically influence task adaptability. Meanwhile, mDeBERTa showed the lowest performance, achieving only 64.1\% precision, 64.0\% recall, 64.8\% F1-score, and 64.9\% accuracy, indicating its limited effectiveness in the context of morphologically rich and low resource languages.
+  In contrast, AfriBERTa, though designed for African languages, showed
+  a modest drop in performance, securing 67.4\% precision, 67.5\%
+  recall, 67.8\% F1-score, and 68.0\% accuracy. The results based on
+  Table 1 suggest that model architecture and pretraining corpora
+  critically influence task adaptability. Meanwhile, mDeBERTa showed the
+  lowest performance, achieving only 64.1\% precision, 64.0\% recall,
+  64.8\% F1-score, and 64.9\% accuracy, indicating its limited
+  effectiveness in the context of morphologically rich and low resource
+  languages.
 
+\item \textbf{Educational Impact and Student Learning Outcomes:}
 
-  
-
-    \item \textbf{Educational Impact and Student Learning Outcomes:}
-
-Interactive, case-based learning makes NLP and ML education engaging and practical. Using tools like Jupyter Notebooks and Google Colab, students solve real-world problems, explore key libraries, and receive instant feedback to build confidence. Ethical discussions on bias and inclusivity further deepen understanding, helping students connect theory to practice and develop into responsible, creative AI practitioners.
+  Interactive, case-based learning makes NLP and ML education engaging
+  and practical. Using tools like Jupyter Notebooks and Google Colab,
+  students solve real-world problems, explore key libraries, and receive
+  instant feedback to build confidence. Ethical discussions on bias and
+  inclusivity further deepen understanding, helping students connect
+  theory to practice and develop into responsible, creative AI
+  practitioners.
 \end{itemize}
-Overall, this style of teaching makes learning NLP and ML more fun, practical, and inclusive. It gives students real experience with modern tools and encourages them to think critically, work with real data, and become more responsible and creative developers in the future.
-
-
+Overall, this style of teaching makes learning NLP and ML more fun,
+practical, and inclusive. It gives students real experience with modern
+tools and encourages them to think critically, work with real data, and
+become more responsible and creative developers in the future.
 
 \subsection{ Case Study 2: Embedding-Based Protein Sequence Alignment Using Clustering and Double Dynamic Programming}
 
 \begin{itemize}
+\item \textbf{Goal:}
+  This case study introduces students to a novel approach for aligning
+  protein sequences with low sequence identity (<30\%) using protein
+  language model (pLM) embeddings \cite{Spicer2025.07.28.666913}. The
+  goal is to teach students how advanced techniques from natural
+  language processing (NLP) and machine learning (ML) including
+  unsupervised clustering and dynamic programming, can be combined to
+  improve structural similarity detection in computational biology.
+
+\item \textbf{Dataset:} Students work with a curated subset of protein
+  pairs from the PISCES dataset. Structural similarity is quantified
+  using TM-scores (by TM-align), which serve as the gold standard for
+  evaluating alignment accuracy.
+
+\item \textbf{Implementation:}
+
+  \textbf{Stage 1 – Embedding-Based Similarity Matrix and Baseline
+    Alignment:}
+  Students compute pairwise similarities between
+  residue-level embeddings (e.g., from ProtT5) to generate a similarity
+  matrix.
+
+  \textbf{ Stage 2 – Z-Score Normalization:}
+  The similarity matrix is
+  normalized using Z-score transformation to reduce noise. This enhances
+  contrast between conserved and non-conserved regions, helping students
+  understand the importance of feature scaling in ML-based pipelines. A
+  first round of dynamic programming is applied to detect aligned
+  residues.
+
+  \textbf{Stage 3 – Clustering and Double Dynamic Programming (DDP):}
+    K-means clustering groups residue embeddings to guide a second dynamic
+  programming step, refining alignments and linking ML with classical
+  algorithms.
    
+  \textbf{Evaluation:}
+  Spearman correlation with TM-align’s TM-scores
+  normalized by minimum sequence length is used as the evaluation metric
+  to measure how well the alignments reflect actual structural
+  similarity.
 
+\item \textbf{Case Study Results and Insights:}
 
- \item \textbf{Goal:}
- %\begin{itemize}
-This case study introduces students to a novel approach for aligning protein sequences with low sequence identity (<30\%) using protein language model (pLM) embeddings \cite{Spicer2025.07.28.666913}. The goal is to teach students how advanced techniques from natural language processing (NLP) and machine learning (ML) including unsupervised clustering and dynamic programming, can be combined to improve structural similarity detection in computational biology.
+  Our complete method, which incorporates all three stages, achieved the
+  highest Spearman correlation of 0.93, outperforming both traditional
+  and recent embedding-based methods. It surpasses TM-Vec (0.76),
+  pLM-BLAST (0.78), and EBA (0.92), indicating that the inclusion of
+  clustering and double dynamic programming (DDP) contributes to
+  performance improvements. The ablation study further demonstrates the
+  importance of each stage in our pipeline, providing students with
+  practical insight into how machine learning and NLP-derived embeddings
+  can be combined with classical techniques to enhance biological
+  sequence analysis.
 
-    \item \textbf{Dataset:} Students work with a curated subset of protein pairs from the PISCES dataset. Structural similarity is quantified using TM-scores (by TM-align), which serve as the gold standard for evaluating alignment accuracy.
+  For comparison, traditional approaches, Needleman–Wunsch
+  \cite{needleman1970general} and HH-align \cite{steinegger2019hh},
+  achieved Spearman correlations of 0.61 and 0.82,
+  respectively. Embedding-based methods, including ProtTucker
+  \cite{heinzinger2022contrastive}, pLM-BLAST \cite{kaminski2023plm},
+  TM-Vec \cite{hamamsy2024protein}, and EBA
+  \cite{pantolini2024embedding}, reached correlations ranging from -0.46
+  to 0.92. These results highlight the effectiveness of our approach
+  using ProtT5 embeddings, and they give students hands-on experience
+  evaluating how removing each stage affects performance, reinforcing
+  the value of data normalization and unsupervised representation
+  learning in computational biology.
 
-    \item \textbf{Implementation:}
+\item \textbf{Educational Impact and Student Learning Outcomes:} This
+  case study provides an applied framework for students to explore the
+  intersection of NLP, machine learning, and computational biology. Key
+  learning outcomes include:
 
-    \textbf{Stage 1 – Embedding-Based Similarity Matrix and Baseline Alignment:}  
-    Students compute pairwise similarities between residue-level embeddings (e.g., from ProtT5) to generate a similarity matrix.
+  \begin{itemize}
+  \item Constructing and analyzing similarity matrices from pLM
+    embeddings
+    
+  \item Applying normalization to reduce noise in embedding similarity matrices
 
-    \textbf{ Stage 2 – Z-Score Normalization:}  
-   The similarity matrix is normalized using Z-score transformation to reduce noise. This enhances contrast between conserved and non-conserved regions, helping students understand the importance of feature scaling in ML-based pipelines. A first round of dynamic programming is applied to detect aligned residues.
+  \item  Exploring unsupervised clustering (e.g., k-means)
 
-    \textbf{Stage 3 – Clustering and Double Dynamic Programming (DDP):}  
-   K-means clustering groups residue embeddings to guide a second dynamic programming step, refining alignments and linking ML with classical algorithms.
-   
-    \textbf{Evaluation:}  
-    Spearman correlation with TM-align’s TM-scores normalized by minimum sequence length is used as the evaluation metric to measure how well the alignments reflect actual structural similarity.
+  \item  Implementing dynamic programming and refining alignment using additional biological cues
 
-    \item \textbf{Case Study Results and Insights:}
+  \item  Interpreting ablation results to evaluate algorithm components
 
-     Our complete method, which incorporates all three stages, achieved the highest Spearman correlation of 0.93, outperforming both traditional and recent embedding-based methods. It surpasses TM-Vec (0.76), pLM-BLAST (0.78), and EBA (0.92), indicating that the inclusion of clustering and double dynamic programming (DDP) contributes to performance improvements. The ablation study further demonstrates the importance of each stage in our pipeline, providing students with practical insight into how machine learning and NLP-derived embeddings can be combined with classical techniques to enhance biological sequence analysis.
-
-For comparison, traditional approaches, Needleman–Wunsch \cite{needleman1970general} and HH-align \cite{steinegger2019hh}, achieved Spearman correlations of 0.61 and 0.82, respectively. Embedding-based methods, including ProtTucker \cite{heinzinger2022contrastive}, pLM-BLAST \cite{kaminski2023plm}, TM-Vec \cite{hamamsy2024protein}, and EBA \cite{pantolini2024embedding}, reached correlations ranging from -0.46 to 0.92. These results highlight the effectiveness of our approach using ProtT5 embeddings, and they give students hands-on experience evaluating how removing each stage affects performance, reinforcing the value of data normalization and unsupervised representation learning in computational biology.
-
-    \item \textbf{Educational Impact and Student Learning Outcomes:}
-  This case study provides an applied framework for students to explore the intersection of NLP, machine learning, and computational biology. Key learning outcomes include:
-
-\begin{itemize}     \item Constructing and analyzing similarity matrices from pLM embeddings
-
-
-    \item Applying normalization to reduce noise in embedding similarity matrices
-
-
-    \item  Exploring unsupervised clustering (e.g., k-means)
-
-
-    \item  Implementing dynamic programming and refining alignment using additional biological cues
-
-
-    \item  Interpreting ablation results to evaluate algorithm components
-
-
-    \item  Linking embedding representations to structural biology insights.
-    \end{itemize}
-
-
-
-
-
-
-    \end{itemize}
+  \item  Linking embedding representations to structural biology insights.
+  \end{itemize}
 \end{itemize}
 
 
 \subsection{Case Study 3: Implicit Offensive Language Classification}
 
 \begin{itemize}
-    \item \textbf{Goal:} Detect whether a given sentence is implicitly offensive based on subtle phrasing and the associated target group.
+\item \textbf{Goal:} Detect whether a given sentence is implicitly
+  offensive based on subtle phrasing and the associated target group.
 
-    \item \textbf{Dataset:} OffensiveLang (8,270 samples), a community-built dataset spanning 38 target groups across 7 categories including race, religion, body type, and occupation \cite{albladi2025hate} \cite{das2024offlandat}.
+\item \textbf{Dataset:} OffensiveLang (8,270 samples), a community-built
+  dataset spanning 38 target groups across 7 categories including race,
+  religion, body type, and occupation \cite{albladi2025hate}
+  \cite{das2024offlandat}.
 
-    \item \textbf{Key Techniques:}
+\item \textbf{Key Techniques:}
     \begin{itemize}
         \item Prompt-based sentence generation using ChatGPT for data augmentation and exploration of edge cases.
         \item Transformer-based classifiers including BERT, RoBERTa, and DistilBERT, which allow students to understand how pre-trained models can capture linguistic nuance.
         \item TF-IDF with Support Vector Machines (SVM), used as a traditional baseline to highlight the advantages and limitations of classical methods.
         \item Macro F1-score is employed as the primary evaluation metric due to the imbalanced nature of the dataset.
-
-
     \end{itemize}
-
     
-\item \textbf{Guided Implementation:}
-Students begin by analyzing sample annotations to understand labeling criteria for implicit offensive language, followed by preprocessing steps like tokenization and label encoding. They then compare traditional (TF-IDF + SVM) and transformer-based models (BERT, RoBERTa, DistilBERT), explore prompt-based data augmentation, and evaluate fairness-aware metrics in imbalanced classification tasks.
-\item \textbf{Optional Extensions:}
-Students may explore zero-shot classification using large language models (LLMs), implement bias mitigation techniques, or build explainable AI components to make predictions more transparent.
-\item \textbf{Educational Impact and Student Learning Outcomes:}
-This case study teaches students to design ML models for socially sensitive language, addressing bias and fairness while building technical and ethical skills.
-
-%We performed almost on par with the top-ranked model (80.1% our approach vs. 80.16% King001) [6].
-
-%final V We performed almost on par with the top-ranked model (80.1% our approach vs. 80.16% King001 [6]).
-\end{imtemize}
+  \item \textbf{Guided Implementation:} Students begin by analyzing
+    sample annotations to understand labeling criteria for implicit
+    offensive language, followed by preprocessing steps like
+    tokenization and label encoding. They then compare traditional
+    (TF-IDF + SVM) and transformer-based models (BERT, RoBERTa,
+    DistilBERT), explore prompt-based data augmentation, and evaluate
+    fairness-aware metrics in imbalanced classification tasks.
+  \item \textbf{Optional Extensions:} Students may explore zero-shot
+    classification using large language models (LLMs), implement bias
+    mitigation techniques, or build explainable AI components to make
+    predictions more transparent.
+  \item \textbf{Educational Impact and Student Learning Outcomes:} This
+    case study teaches students to design ML models for socially
+    sensitive language, addressing bias and fairness while building
+    technical and ethical skills.
+\end{itemize}
 
 \section{ Instructional Methodology}
 
-The course engages students with hands-on Colab notebooks, live demos, and graded submissions emphasizing clarity, functionality, and understanding.
+The course engages students with hands-on Colab notebooks, live demos,
+and graded submissions emphasizing clarity, functionality, and
+understanding.
 \section{Student Assessment and Feedback}
 
-Student learning is assessed via notebooks, reflection prompts, mini quizzes, and surveys to measure understanding and skill growth.
+Student learning is assessed via notebooks, reflection prompts, mini
+quizzes, and surveys to measure understanding and skill growth.
 \section{Discussion and Impact}
 
-Students found the hands-on, real-world case studies engaging and helpful for understanding NLP concepts. Teacher and peer feedback turned challenges like debugging and limited data into learning opportunities, while the approach also raised awareness of ethical issues, enhancing technical skills and promoting inclusive AI practices.
-%\section{Future Directions}
-
-%We aim to add new case studies on topics like fake news and content moderation. Future plans include using lightweight transformer models and adding auto-graded tasks. Students will also be encouraged to create their own case studies using public datasets.
+Students found the hands-on, real-world case studies engaging and
+helpful for understanding NLP concepts. Teacher and peer feedback turned
+challenges like debugging and limited data into learning opportunities,
+while the approach also raised awareness of ethical issues, enhancing
+technical skills and promoting inclusive AI practices.
 
 \section{Conclusion and Future Works}
 
+This work presents a structured NLP education framework with three case
+studies: sentiment analysis in low-resource African languages, protein
+sequence alignment using embeddings, and implicit harm detection with
+ethical evaluation. Future work includes modules on explainable AI,
+machine translation, and bias visualization.
 
-This work presents a structured NLP education framework with three case studies: sentiment analysis in low-resource African languages, protein sequence alignment using embeddings, and implicit harm detection with ethical evaluation. Future work includes modules on explainable AI, machine translation, and bias visualization.
 \medskip
 
 \printbibliography
